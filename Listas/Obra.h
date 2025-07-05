@@ -25,7 +25,7 @@ public:
 
     int getIdAutor() { return idAutor; }
     string getTitulo() { return titulo; }
-    string getTipo() { return tipo; }
+    string getTipoPoesia() { return tipo; }
     Lista<Edicion>& getEdiciones() { return ediciones; }
 
     void setIdAutor(int idAutor) { this->idAutor = idAutor; }
