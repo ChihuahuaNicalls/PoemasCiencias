@@ -9,7 +9,6 @@ struct nodo {
   T dato1;
   nodo<T>* sig;
 
-  // Constructor para inicializar 'dato1' y 'sig'
   nodo(const T& d, nodo<T>* s = nullptr) : dato1(d), sig(s) {}
 };
 
@@ -24,7 +23,6 @@ class Lista {
     cab = NULL;
   }
 
-  // Destructor para liberar memoria
   ~Lista() {
     vaciarLista();
   }
@@ -44,18 +42,18 @@ class Lista {
 
 template <class T>
 void Lista<T>::insertarInicio(T info1) {
-  cab = new nodo<T>(info1, cab); // Usa el constructor
+  cab = new nodo<T>(info1, cab); 
   numElem++;
 }
 
 template <class T>
 void Lista<T>::insertarFinal(T info1) {
   if (listaVacia()) {
-    cab = new nodo<T>(info1); // Constructor con 'sig' = nullptr
+    cab = new nodo<T>(info1);
   } else {
     nodo<T>* fin = cab;
     while (fin->sig != NULL) fin = fin->sig;
-    fin->sig = new nodo<T>(info1); // Constructor con 'sig' = nullptr
+    fin->sig = new nodo<T>(info1);
   }
   numElem++;
 }
@@ -76,9 +74,8 @@ void Lista<T>::insertarPos(T info1, int pos) {
     for (int i = 0; i < pos - 1; i++) {
       ins = ins->sig;
     }
-    // Usa constructor para inicializar y enlazar
     ins->sig = new nodo<T>(info1, ins->sig);
-    numElem++; // Corregido: incrementar numElem
+    numElem++;
   }
 }
 
@@ -99,7 +96,7 @@ nodo<T>* Lista<T>::buscarPos(int pos) {
 template <class T>
 T& Lista<T>::obtener(int pos) {
     if (pos < 0 || pos >= numElem) {
-        throw out_of_range("Posición inválida");
+        throw out_of_range("Posicion invalida");
     }
     nodo<T>* aux = cab;
     for (int i = 0; i < pos; i++) {
@@ -108,7 +105,6 @@ T& Lista<T>::obtener(int pos) {
     return aux->dato1;
 }
 
-// Resto de métodos sin cambios (pero se mantienen por completitud)
 template <class T>
 bool Lista<T>::borrarPos(int pos) {
   if (pos < 0 || pos >= numElem || listaVacia()) return false;
