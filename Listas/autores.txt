@@ -1,0 +1,35 @@
+Guillermo;Alonso;M;1961-02-10;Helsinki;Chile;Helsinki;jurisprudencia;12;1987;1992
+Raquel;Castro;F;1955-02-15;Toronto;Colombia;Sídney;otros;22;1973;1974
+Alberto;Castro;M;1963-03-12;Ámsterdam;Venezuela;Ámsterdam;jurisprudencia;5;2002;2003
+Sofía;Cruz;F;1970-09-28;Pekín;Chile;Tokio;literatura;26;1993;1994
+Marina;Cruz;F;1973-06-09;Lima;Reino Unido;Lima;artes;28;1999;2003
+María;Domínguez;F;1948-11-09;Monterrey;China;Monterrey;jurisprudencia;34;1979;1984
+Jimena;Díaz;F;1972-05-05;Ámsterdam;Emiratos Árabes;Caracas;ciencias sociales;30;1999;2001
+Salvador;García;M;1960-08-01;Rosario;Singapur;Rosario;otros;14;1987;1989
+María;Gil;F;1956-08-10;Helsinki;Japón;Helsinki;otros;24;1991;1995
+Adriana;Hernández;F;1958-04-02;Estambul;China;Estambul;jurisprudencia;25;1986;1987
+Rodrigo;Jiménez;M;1974-12-08;Monterrey;Bélgica;Monterrey;jurisprudencia;6;2014;2019
+Paula;Jiménez;F;1966-08-16;Lima;Turquía;Lima;literatura;23;1989;1993
+Rodrigo;López;M;1964-07-20;El Cairo;Noruega;Toronto;otros;11;1982;1983
+Rafael;López;M;1942-11-08;París;México;París;otros;4;1963;1967
+Irene;López;F;1955-07-04;Moscú;Brasil;Moscú;literatura;27;1992;1993
+Ignacio;Medina;M;1950-05-17;Dubái;Austria;Dubái;áreas de la salud;16;1990;1992
+Sergio;Molina;M;1946-11-10;Tokio;Egipto;Viena;otros;13;1969;1974
+Fernando;Molina;M;1971-02-25;Sevilla;Turquía;Monterrey;otros;10;2010;2014
+Gabriela;Moreno;F;1954-01-03;Sevilla;Brasil;Valencia;otros;18;1982;1983
+Patricia;Navarro;F;1969-06-25;Zaragoza;España;Zaragoza;áreas de la salud;29;1990;1991
+Inés;Ortiz;F;1959-10-26;Pekín;España;Pekín;áreas de la salud;31;1986;1987
+María;Pérez;F;1944-12-05;Sídney;Argentina;Sídney;áreas de la salud;35;1979;1981
+Guillermo;Pérez;M;1964-02-18;París;Rusia;París;otros;3;1993;1998
+Sofía;Ramírez;F;1961-02-08;Medellín;Venezuela;Medellín;artes;21;1992;1994
+Francisco;Ramírez;M;1963-08-17;Atenas;Colombia;Zaragoza;ciencias sociales;17;1981;1986
+Rosa;Romero;F;1972-08-09;Sevilla;México;Sevilla;otros;33;1998;1999
+Patricia;Romero;F;1947-02-24;Toronto;Perú;Dubái;artes;32;1987;1990
+Liliana;Serrano;F;1952-02-04;Helsinki;Portugal;Helsinki;ingenierías;20;1971;1972
+Martín;Suárez;M;1957-01-25;Monterrey;Japón;Monterrey;ciencias sociales;1;1979;1981
+Eduardo;Sánchez;M;1945-07-04;Ámsterdam;Turquía;Ámsterdam;ciencias sociales;2;1964;1968
+Martín;Torres;M;1943-04-27;Valencia;Canadá;Valencia;ciencias sociales;7;1963;1965
+Armando;Torres;M;1953-11-16;Estocolmo;Emiratos Árabes;Estocolmo;ingenierías;8;1975;1978
+Rocío;Álvarez;F;1957-11-16;Lima;Finlandia;Moscú;áreas de la salud;19;1990;1992
+Pedro;Álvarez;M;1945-02-24;Londres;Rusia;Sídney;otros;15;1967;1969
+Fernando;Álvarez;M;1975-09-09;Estambul;Austria;Estambul;ingenierías;9;2004;2006

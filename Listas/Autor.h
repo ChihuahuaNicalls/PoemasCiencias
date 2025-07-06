@@ -37,17 +37,17 @@ public:
         this->yearPublicacionPrimeraObra = yearPublicacionPrimeraObra;
     }
 
-    int getId() { return id; }
-    string getNombre() { return nombre; }
-    string getApellido() { return apellido; }
-    string getSexo() { return sexo; }
-    Fecha getFechaNacimiento() { return fechaNacimiento; }
-    string getCiudadNacimiento() { return ciudadNacimiento; }
-    string getPaisNacimiento() { return paisNacimiento; }
-    string getCiudadResidencia() { return ciudadResidencia; }
-    string getFormacionAcademica() { return formacionAcademica; }
-    int getYearInicioLiteratura() { return yearInicioLiteratura; }
-    int getYearPublicacionPrimeraObra() { return yearPublicacionPrimeraObra; }
+    int getId() const { return id; }
+    string getNombre() const { return nombre; }
+    string getApellido() const { return apellido; }
+    string getSexo() const { return sexo; }
+    Fecha getFechaNacimiento() const { return fechaNacimiento; }
+    string getCiudadNacimiento() const { return ciudadNacimiento; }
+    string getPaisNacimiento() const { return paisNacimiento; }
+    string getCiudadResidencia() const { return ciudadResidencia; }
+    string getFormacionAcademica() const { return formacionAcademica; }
+    int getYearInicioLiteratura() const { return yearInicioLiteratura; }
+    int getYearPublicacionPrimeraObra() const { return yearPublicacionPrimeraObra; }
     int calcularEdad() const{ return fechaNacimiento.calcularEdad(); }
 
     void setId(int id) { this->id = id; }

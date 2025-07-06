@@ -2,7 +2,6 @@
 #define GESTOR_H
 
 #include <iostream>
-#include <vector>
 #include <fstream>
 #include <algorithm>
 #include <sstream>
@@ -11,7 +10,7 @@
 #include "Editorial.h"
 #include "Edicion.h"
 #include "Obra.h"
-#include "Obra.h"
+#include "Fecha.h"
 
 using namespace std;
 
@@ -29,38 +28,42 @@ public:
     void menu();
 
     // Consultas
-    void consulta1_obrasPorAutor();
-    void consulta2_nombresObrasPorTipo();
-    void consulta3_autoresPorEditorial();
-    void consulta4_editorialesPorPoetas(int umbral);
-    void consulta5_generoPorEditorial();
-    void consulta6_autoresPorEdadYFormacion(int edadMin, int edadMax, string formacion);
-    void consulta7_autoresPorPoesiaYEditorial(string tipo, int idEditorial);
+    void obrasPorAutor();
+    void nombresObrasPorTipo();
+    void autoresPorEditorial();
+    void editorialesPorPoetas(int umbral);
+    void generoPorEditorial();
+    void autoresPorEdadYFormacion(int edadMin, int edadMax, string formacion);
+    void autoresPorPoesiaYEditorial(string tipo, int idEditorial);
 
-    // Helpers
-    Autor *buscarAutorPorId(int id);
-    Editorial *buscarEditorialPorId(int id);
-    void ordenarObrasPorEditorialYFecha(vector<Edicion> &ediciones);
+    // Busqueda binaria
+    Autor *busquedaBinariaAutor(const string &apellido);
+    Editorial *busquedaBinariaEditorial(const string &nombre);
 
-    // Binaria sobre autores (ordenado por ID)
-    Autor *busquedaBinariaAutor(int id);
-    Editorial *busquedaBinariaEditorial(int id);
-
-    // CRUD Básico
+    // Gestion
     void agregarAutor(const Autor &autor);
     void agregarEditorial(const Editorial &editorial);
     void agregarObra(const Obra &obra);
     void agregarEdicion(const Edicion &edicion);
-    void ordenarAutoresPorId();
-    void ordenarEditorialesPorId();
+    bool eliminarAutor(const string &apellido);
+    bool eliminarEditorial(const string &nombre);
+    bool eliminarObra(const string &titulo);
+    bool eliminarEdicion(const string &titulo, int numero);
+    bool modificarAutor(const string &apellido, const Autor &nuevo);
+    bool modificarEditorial(int id, const Editorial &nueva);
+    bool modificarObra(const string &titulo, const Obra &nueva);
+    bool modificarEdicion(const string &titulo, int numero, const Edicion &nueva);
 
-    void listarAutores();
-    void listarEditoriales();
-    void listarObras();
+    // Listas
+    void listaAutores();
+    void listaEditoriales();
+    void listaObras();
+    void listaEdiciones();
 };
 
 void Gestor::cargarDatos()
 {
+    // Cargar autores verificando id
     ifstream fa("autores.txt");
     if (fa.is_open())
     {
@@ -68,27 +71,28 @@ void Gestor::cargarDatos()
         while (getline(fa, linea))
         {
             stringstream ss(linea);
-            int id, inicio, primera;
-            string nombre, apellido, sexo, fNacStr, cNac, pNac, cRes, formacion;
+            int id, añoInicio, añoPrimeraObra;
+            string nombre, apellido, sexo, fechaNacStr, ciudadNac, pais, ciudadRes, formacion;
             getline(ss, nombre, ';');
             getline(ss, apellido, ';');
             getline(ss, sexo, ';');
-            getline(ss, fNacStr, ';');
-            getline(ss, cNac, ';');
-            getline(ss, pNac, ';');
-            getline(ss, cRes, ';');
+            getline(ss, fechaNacStr, ';');
+            getline(ss, ciudadNac, ';');
+            getline(ss, pais, ';');
+            getline(ss, ciudadRes, ';');
             getline(ss, formacion, ';');
             ss >> id;
             ss.ignore();
-            ss >> inicio;
+            ss >> añoInicio;
             ss.ignore();
-            ss >> primera;
-            Fecha fNac(fNacStr);
-            autores.insertarFinal(Autor(id, nombre, apellido, sexo, fNac, cNac, pNac, cRes, formacion, inicio, primera));
+            ss >> añoPrimeraObra;
+            Fecha fechaNac(fechaNacStr);
+            agregarAutor(Autor(id, nombre, apellido, sexo, fechaNac, ciudadNac, pais, ciudadRes, formacion, añoInicio, añoPrimeraObra));
         }
         fa.close();
     }
 
+    // Cargar editoriales verificando id
     ifstream fe("editoriales.txt");
     if (fe.is_open())
     {
@@ -96,16 +100,35 @@ void Gestor::cargarDatos()
         while (getline(fe, linea))
         {
             stringstream ss(linea);
-            string id, nombre, ciudad, pais;
-            getline(ss, id, ';');
+            string idStr, nombre, ciudadNac, pais;
+            getline(ss, idStr, ';');
             getline(ss, nombre, ';');
-            getline(ss, ciudad, ';');
+            getline(ss, ciudadNac, ';');
             getline(ss, pais);
-            editoriales.insertarFinal(Editorial(stoi(id), nombre, ciudad, pais));
+
+            int id = stoi(idStr);
+
+            // Verificar si el ID ya existe
+            bool idDuplicado = false;
+            for (int i = 0; i < editoriales.getNumElem(); ++i)
+            {
+                if (editoriales.obtener(i).getId() == id)
+                {
+                    cout << "Advertencia: ID duplicado en editoriales - " << id << ". Omitting..." << endl;
+                    idDuplicado = true;
+                    break;
+                }
+            }
+
+            if (!idDuplicado)
+            {
+                editoriales.insertarFinal(Editorial(id, nombre, ciudadNac, pais));
+            }
         }
         fe.close();
     }
 
+    // Cargar obras verificando titulo
     ifstream fo("obras.txt");
     if (fo.is_open())
     {
@@ -118,11 +141,28 @@ void Gestor::cargarDatos()
             getline(ss, nombre, ';');
             getline(ss, tipo, ';');
             ss >> idAutor;
-            obras.insertarFinal(Obra(idAutor, nombre, tipo));
+
+            // Verificar si el título ya existe
+            bool tituloDuplicado = false;
+            for (int i = 0; i < obras.getNumElem(); ++i)
+            {
+                if (obras.obtener(i).getTitulo() == nombre)
+                {
+                    cout << "Advertencia: Título duplicado en obras - " << nombre << ". Omitting..." << endl;
+                    tituloDuplicado = true;
+                    break;
+                }
+            }
+
+            if (!tituloDuplicado)
+            {
+                obras.insertarFinal(Obra(idAutor, nombre, tipo));
+            }
         }
         fo.close();
     }
 
+    // Cargar ediciones verificando numero
     ifstream fed("ediciones.txt");
     if (fed.is_open())
     {
@@ -130,171 +170,177 @@ void Gestor::cargarDatos()
         while (getline(fed, linea))
         {
             stringstream ss(linea);
-            string nombreObra, fechaStr, ciudad, idEditorialStr;
+            string nombreObra, fechaStr, ciudadNac, idEditorialStr;
             int numero, idEditorial;
             getline(ss, nombreObra, ';');
             ss >> numero;
             ss.ignore();
             getline(ss, fechaStr, ';');
             getline(ss, idEditorialStr, ';');
-            getline(ss, ciudad);
+            getline(ss, ciudadNac);
             Fecha fecha(fechaStr);
             idEditorial = stoi(idEditorialStr);
+
+            // Buscar obra
+            bool obraEncontrada = false;
             for (int i = 0; i < obras.getNumElem(); ++i)
             {
                 if (obras.obtener(i).getTitulo() == nombreObra)
                 {
-                    Edicion e(numero, fecha, idEditorial, obras.obtener(i).getIdAutor(), ciudad, nombreObra);
-                    obras.obtener(i).getEdiciones().insertarFinal(e);
+                    // Verificar edicion existente
+                    bool numeroDuplicado = false;
+                    Lista<Edicion> &ediciones = obras.obtener(i).getEdiciones();
+                    for (int j = 0; j < ediciones.getNumElem(); ++j)
+                    {
+                        if (ediciones.obtener(j).getNumero() == numero)
+                        {
+                            cout << "Advertencia: Número de edición duplicado - " << numero
+                                 << " para obra " << nombreObra << ". Omitting..." << endl;
+                            numeroDuplicado = true;
+                            break;
+                        }
+                    }
+
+                    if (!numeroDuplicado)
+                    {
+                        Edicion editorial(numero, fecha, idEditorial,
+                                          obras.obtener(i).getIdAutor(),
+                                          ciudadNac, nombreObra);
+                        ediciones.insertarFinal(editorial);
+                    }
+
+                    obraEncontrada = true;
                     break;
                 }
+            }
+
+            if (!obraEncontrada)
+            {
+                cout << "Advertencia: Obra no encontrada para edición - " << nombreObra << endl;
+            }
+        }
+        fed.close();
+    }
+}
+
+void Gestor::guardarDatos()
+{
+    // Guardar autores
+    ofstream fa("autores.txt");
+    if (fa.is_open())
+    {
+        for (int i = 0; i < autores.getNumElem(); i++)
+        {
+            Autor a = autores.obtener(i);
+            fa << a.getNombre() << ';' << a.getApellido() << ';' << a.getSexo() << ';'
+               << a.getFechaNacimiento().toString() << ';' << a.getCiudadNacimiento() << ';'
+               << a.getPaisNacimiento() << ';' << a.getCiudadResidencia() << ';'
+               << a.getFormacionAcademica() << ';' << a.getId() << ';'
+               << a.getYearInicioLiteratura() << ';' << a.getYearPublicacionPrimeraObra() << '\n';
+        }
+        fa.close();
+    }
+
+    // Guardar editoriales
+    ofstream fe("editoriales.txt");
+    if (fe.is_open())
+    {
+        for (int i = 0; i < editoriales.getNumElem(); i++)
+        {
+            Editorial e = editoriales.obtener(i);
+            fe << e.getId() << ';' << e.getNombre() << ';'
+               << e.getCiudad() << ';' << e.getPais() << '\n';
+        }
+        fe.close();
+    }
+
+    // Guardar obras
+    ofstream fo("obras.txt");
+    if (fo.is_open())
+    {
+        for (int i = 0; i < obras.getNumElem(); i++)
+        {
+            Obra o = obras.obtener(i);
+            fo << o.getTitulo() << ';' << o.getTipoPoesia() << ';'
+               << o.getIdAutor() << '\n';
+        }
+        fo.close();
+    }
+
+    // Guardar ediciones
+    ofstream fed("ediciones.txt");
+    if (fed.is_open())
+    {
+        for (int i = 0; i < obras.getNumElem(); i++)
+        {
+            Obra o = obras.obtener(i);
+            Lista<Edicion> &ediciones = o.getEdiciones();
+            for (int j = 0; j < ediciones.getNumElem(); j++)
+            {
+                Edicion e = ediciones.obtener(j);
+                fed << o.getTitulo() << ';' << e.getNumero() << ';'
+                    << e.getFechaPublicacion().toString() << ';'
+                    << e.getIdEditorial() << ';' << e.getCiudad() << '\n';
             }
         }
         fed.close();
     }
 
-    ordenarAutoresPorId();
-    ordenarEditorialesPorId();
+    cout << "Datos guardados...\n";
 }
 
-void Gestor::guardarDatos()
+Autor *Gestor::busquedaBinariaAutor(const string &apellido)
 {
-    ofstream fa("autores.txt");
-    for (int i = 0; i < autores.getNumElem(); ++i)
+    int ini = 0, fin = autores.getNumElem() - 1;
+    while (ini <= fin)
     {
-        Autor &a = autores.obtener(i);
-        fa << a.getNombre() << ';' << a.getApellido() << ';' << a.getSexo() << ';'
-           << a.getFechaNacimiento().toString() << ';' << a.getCiudadNacimiento() << ';'
-           << a.getPaisNacimiento() << ';' << a.getCiudadResidencia() << ';'
-           << a.getFormacionAcademica() << ';' << a.getId() << ';'
-           << a.getYearInicioLiteratura() << ';' << a.getYearPublicacionPrimeraObra() << '\n';
-    }
-    fa.close();
-
-    ofstream fe("editoriales.txt");
-    for (int i = 0; i < editoriales.getNumElem(); ++i)
-    {
-        Editorial &e = editoriales.obtener(i);
-        fe << e.getId() << ';' << e.getNombre() << ';' << e.getCiudad() << ';' << e.getPais() << '\n';
-    }
-    fe.close();
-
-    ofstream fo("obras.txt");
-    for (int i = 0; i < obras.getNumElem(); ++i)
-    {
-        Obra &o = obras.obtener(i);
-        fo << o.getTitulo() << ';' << o.getTipoPoesia() << ';' << o.getIdAutor() << '\n';
-    }
-    fo.close();
-
-    ofstream fed("ediciones.txt");
-    for (int i = 0; i < obras.getNumElem(); ++i)
-    {
-        Obra &o = obras.obtener(i);
-        for (int j = 0; j < o.getEdiciones().getNumElem(); ++j)
-        {
-            Edicion &e = o.getEdiciones().obtener(j);
-            fed << o.getTitulo() << ';' << e.getNumero() << ';'
-                << e.getFechaPublicacion().toString() << ';'
-                << e.getIdEditorial() << ';' << e.getCiudad() << '\n';
-        }
-    }
-    fed.close();
-}
-
-void Gestor::ordenarAutoresPorId()
-{
-    for (int i = 0; i < autores.getNumElem() - 1; ++i)
-    {
-        for (int j = i + 1; j < autores.getNumElem(); ++j)
-        {
-            if (autores.obtener(i).getId() > autores.obtener(j).getId())
-            {
-                Autor temp = autores.obtener(i);
-                autores.modificarPos(autores.obtener(j), i);
-                autores.modificarPos(temp, j);
-            }
-        }
-    }
-}
-
-Editorial* Gestor::buscarEditorialPorId(int id) {
-    return busquedaBinariaEditorial(id);
-}
-
-void Gestor::ordenarEditorialesPorId()
-{
-    for (int i = 0; i < editoriales.getNumElem() - 1; ++i)
-    {
-        for (int j = i + 1; j < editoriales.getNumElem(); ++j)
-        {
-            if (editoriales.obtener(i).getId() > editoriales.obtener(j).getId())
-            {
-                Editorial temp = editoriales.obtener(i);
-                editoriales.modificarPos(editoriales.obtener(j), i);
-                editoriales.modificarPos(temp, j);
-            }
-        }
-    }
-}
-
-Autor *Gestor::busquedaBinariaAutor(int id)
-{
-    int inicio = 0, fin = autores.getNumElem() - 1;
-    while (inicio <= fin)
-    {
-        int medio = (inicio + fin) / 2;
-        int actual = autores.obtener(medio).getId();
-        if (actual == id)
-            return &autores.obtener(medio);
-        else if (actual < id)
-            inicio = medio + 1;
+        int mid = (ini + fin) / 2;
+        string apellidoActual = autores.obtener(mid).getApellido();
+        if (apellidoActual == apellido)
+            return &autores.obtener(mid);
+        else if (apellidoActual < apellido)
+            ini = mid + 1;
         else
-            fin = medio - 1;
+            fin = mid - 1;
     }
     return nullptr;
 }
 
-Editorial *Gestor::busquedaBinariaEditorial(int id)
+Editorial *Gestor::busquedaBinariaEditorial(const string &nombre)
 {
-    int inicio = 0, fin = editoriales.getNumElem() - 1;
-    while (inicio <= fin)
+    int ini = 0, fin = editoriales.getNumElem() - 1;
+    while (ini <= fin)
     {
-        int medio = (inicio + fin) / 2;
-        int actual = editoriales.obtener(medio).getId();
-        if (actual == id)
-            return &editoriales.obtener(medio);
-        else if (actual < id)
-            inicio = medio + 1;
+        int mid = (ini + fin) / 2;
+        string actual = editoriales.obtener(mid).getNombre();
+        if (actual == nombre)
+            return &editoriales.obtener(mid);
+        else if (actual < nombre)
+            ini = mid + 1;
         else
-            fin = medio - 1;
+            fin = mid - 1;
     }
     return nullptr;
 }
-
-Autor *Gestor::buscarAutorPorId(int id)
-{
-    return busquedaBinariaAutor(id);
-}
-
-
-// ----------------------------- CRUD -----------------------------
 
 void Gestor::agregarAutor(const Autor &autor)
 {
-    autores.insertarFinal(autor);
-    ordenarAutoresPorId();
-}
+    // Verificar id
+    for (int i = 0; i < autores.getNumElem(); ++i)
+    {
+        if (autores.obtener(i).getId() == autor.getId())
+        {
+            cout << "Error: ID de autor duplicado - " << autor.getId() << endl;
+            return;
+        }
+    }
 
-void Gestor::agregarEditorial(const Editorial &editorial)
-{
-    editoriales.insertarFinal(editorial);
-    ordenarEditorialesPorId();
-}
-
-void Gestor::agregarObra(const Obra &obra)
-{
-    obras.insertarFinal(obra);
+    int pos = 0;
+    while (pos < autores.getNumElem() && autores.obtener(pos).getApellido() < autor.getApellido())
+    {
+        pos++;
+    }
+    autores.insertarPos(autor, pos);
 }
 
 void Gestor::agregarEdicion(const Edicion &ed)
@@ -303,351 +349,1358 @@ void Gestor::agregarEdicion(const Edicion &ed)
     {
         if (obras.obtener(i).getTitulo() == ed.getNombreObra())
         {
-            obras.obtener(i).getEdiciones().insertarFinal(ed);
+            // Verificar si la edicion ya existe
+            Lista<Edicion> &ediciones = obras.obtener(i).getEdiciones();
+            for (int j = 0; j < ediciones.getNumElem(); ++j)
+            {
+                if (ediciones.obtener(j).getNumero() == ed.getNumero())
+                {
+                    cout << "Error: Número de edición duplicado - " << ed.getNumero()
+                         << " para obra " << ed.getNombreObra() << endl;
+                    return;
+                }
+            }
+
+            ediciones.insertarFinal(ed);
             break;
         }
     }
 }
 
-void Gestor::listarAutores()
+void Gestor::agregarObra(const Obra &obra)
 {
-    for (int i = 0; i < autores.getNumElem(); ++i)
+    // Verificar si el titulo ya existe
+    for (int i = 0; i < obras.getNumElem(); ++i)
     {
-        Autor &a = autores.obtener(i);
-        cout << a.getId() << " - " << a.getNombre() << " " << a.getApellido() << endl;
+        if (obras.obtener(i).getTitulo() == obra.getTitulo())
+        {
+            cout << "Error: Título de obra duplicado - " << obra.getTitulo() << endl;
+            return;
+        }
     }
+    obras.insertarFinal(obra);
 }
 
-void Gestor::listarEditoriales()
+void Gestor::agregarEditorial(const Editorial &editorial)
+{
+    // Verificar si el id ya existe
+    for (int i = 0; i < editoriales.getNumElem(); ++i)
+    {
+        if (editoriales.obtener(i).getId() == editorial.getId())
+        {
+            cout << "Error: ID de editorial duplicado - " << editorial.getId() << endl;
+            return;
+        }
+    }
+
+    int pos = 0;
+    while (pos < editoriales.getNumElem() && editoriales.obtener(pos).getNombre() < editorial.getNombre())
+    {
+        pos++;
+    }
+    editoriales.insertarPos(editorial, pos);
+}
+
+bool Gestor::eliminarAutor(const string &apellido)
+{
+    Autor *autor = busquedaBinariaAutor(apellido);
+    if (!autor)
+        return false;
+
+    for (int i = 0; i < autores.getNumElem(); ++i)
+    {
+        if (autores.obtener(i).getId() == autor->getId())
+        {
+            autores.borrarPos(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Gestor::eliminarEditorial(const string &nombre)
 {
     for (int i = 0; i < editoriales.getNumElem(); ++i)
     {
-        Editorial &e = editoriales.obtener(i);
+        if (editoriales.obtener(i).getNombre() == nombre)
+        {
+            editoriales.borrarPos(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Gestor::eliminarObra(const string &titulo)
+{
+    for (int i = 0; i < obras.getNumElem(); ++i)
+    {
+        if (obras.obtener(i).getTitulo() == titulo)
+        {
+            obras.borrarPos(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Gestor::eliminarEdicion(const string &titulo, int numero)
+{
+    for (int i = 0; i < obras.getNumElem(); ++i)
+    {
+        if (obras.obtener(i).getTitulo() == titulo)
+        {
+            Lista<Edicion> &ediciones = obras.obtener(i).getEdiciones();
+            for (int j = 0; j < ediciones.getNumElem(); ++j)
+            {
+                if (ediciones.obtener(j).getNumero() == numero)
+                {
+                    ediciones.borrarPos(j);
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool Gestor::modificarAutor(const string &apellido, const Autor &nuevo)
+{
+    Autor *autorExistente = busquedaBinariaAutor(apellido);
+    if (!autorExistente)
+        return false;
+
+    int id = autorExistente->getId();
+    bool apellidoCambiado = (autorExistente->getApellido() != nuevo.getApellido());
+
+    int pos = -1;
+    for (int i = 0; i < autores.getNumElem(); ++i)
+    {
+        if (autores.obtener(i).getId() == id)
+        {
+            pos = i;
+            break;
+        }
+    }
+
+    if (pos == -1)
+        return false;
+
+    if (apellidoCambiado)
+    {
+        autores.borrarPos(pos);
+        agregarAutor(nuevo);
+    }
+    else
+    {
+        autores.modificarPos(nuevo, pos);
+    }
+
+    return true;
+}
+
+bool Gestor::modificarEditorial(int id, const Editorial &nueva)
+{
+    for (int i = 0; i < editoriales.getNumElem(); ++i)
+    {
+        if (editoriales.obtener(i).getId() == id)
+        {
+            editoriales.modificarPos(nueva, i);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Gestor::modificarObra(const string &titulo, const Obra &nueva)
+{
+    for (int i = 0; i < obras.getNumElem(); ++i)
+    {
+        if (obras.obtener(i).getTitulo() == titulo)
+        {
+            obras.modificarPos(nueva, i);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Gestor::modificarEdicion(const string &titulo, int numero, const Edicion &nueva)
+{
+    for (int i = 0; i < obras.getNumElem(); ++i)
+    {
+        if (obras.obtener(i).getTitulo() == titulo)
+        {
+            Lista<Edicion> &ediciones = obras.obtener(i).getEdiciones();
+            for (int j = 0; j < ediciones.getNumElem(); ++j)
+            {
+                if (ediciones.obtener(j).getNumero() == numero)
+                {
+                    ediciones.modificarPos(nueva, j);
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+void Gestor::listaAutores()
+{
+    int n = autores.getNumElem();
+    if (n <= 0)
+        return;
+    int *indices = new int[n];
+    for (int i = 0; i < n; ++i)
+    {
+        indices[i] = i;
+    }
+
+    // Shell Sort
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i++)
+        {
+            int temp = indices[i];
+            int j;
+            for (j = i; j >= gap; j -= gap)
+            {
+                int indiceAnt = indices[j - gap];
+                if (autores.obtener(indiceAnt).getId() <= autores.obtener(temp).getId())
+                {
+                    break;
+                }
+                indices[j] = indiceAnt;
+            }
+            indices[j] = temp;
+        }
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        int idx = indices[i];
+        Autor &a = autores.obtener(idx);
+        cout << a.getId() << " - " << a.getNombre() << " " << a.getApellido() << endl;
+    }
+
+    delete[] indices;
+}
+
+void Gestor::listaEditoriales()
+{
+    int n = editoriales.getNumElem();
+    if (n <= 0)
+        return;
+
+    int *indices = new int[n];
+    for (int i = 0; i < n; ++i)
+    {
+        indices[i] = i;
+    }
+
+    // Shell Sort
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i++)
+        {
+            int temp = indices[i];
+            int j;
+            for (j = i; j >= gap; j -= gap)
+            {
+                int indiceAnt = indices[j - gap];
+                if (editoriales.obtener(indiceAnt).getId() <= editoriales.obtener(temp).getId())
+                {
+                    break;
+                }
+                indices[j] = indiceAnt;
+            }
+            indices[j] = temp;
+        }
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        int idx = indices[i];
+        Editorial &e = editoriales.obtener(idx);
         cout << e.getId() << " - " << e.getNombre() << endl;
     }
+
+    delete[] indices;
 }
 
-void Gestor::listarObras()
+void Gestor::listaObras()
 {
-    for (int i = 0; i < obras.getNumElem(); ++i)
+    int n = obras.getNumElem();
+    if (n <= 0)
+        return;
+
+    int *indices = new int[n];
+    for (int i = 0; i < n; ++i)
     {
-        Obra &o = obras.obtener(i);
-        cout << o.getTitulo() << " - " << o.getTipoPoesia() << endl;
+        indices[i] = i;
     }
+
+    // Shell Sort
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i++)
+        {
+            int temp = indices[i];
+            int j;
+            for (j = i; j >= gap; j -= gap)
+            {
+                int prev_idx = indices[j - gap];
+                string titulo1 = obras.obtener(prev_idx).getTitulo();
+                string titulo2 = obras.obtener(temp).getTitulo();
+                if (titulo1 <= titulo2)
+                    break;
+                indices[j] = prev_idx;
+            }
+            indices[j] = temp;
+        }
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        int idx = indices[i];
+        Obra &o = obras.obtener(idx);
+        cout << o.getTitulo() << " - " << o.getTipoPoesia() << " - Autor ID: " << o.getIdAutor() << endl;
+    }
+
+    delete[] indices;
 }
 
-
-// ----------------------------- CONSULTAS -----------------------------
-
-void Gestor::consulta1_obrasPorAutor()
+void Gestor::listaEdiciones()
 {
-    int id;
-    cout << "ID del autor: ";
-    cin >> id;
-    Autor *autor = buscarAutorPorId(id);
-    if (!autor)
+    int nObras = obras.getNumElem();
+    if (nObras <= 0)
+        return;
+
+    int *indicesObras = new int[nObras];
+    for (int i = 0; i < nObras; ++i)
+    {
+        indicesObras[i] = i;
+    }
+
+    // Shell Sort para ordenar obras relacionadas a ediciones
+    for (int gap = nObras / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < nObras; i++)
+        {
+            int temp = indicesObras[i];
+            int j;
+            for (j = i; j >= gap; j -= gap)
+            {
+                int prev_idx = indicesObras[j - gap];
+                string titulo1 = obras.obtener(prev_idx).getTitulo();
+                string titulo2 = obras.obtener(temp).getTitulo();
+                if (titulo1 <= titulo2)
+                    break;
+                indicesObras[j] = prev_idx;
+            }
+            indicesObras[j] = temp;
+        }
+    }
+
+    // Recorrer obras ordenadas para mostrar ediciones
+    for (int i = 0; i < nObras; ++i)
+    {
+        int idxObra = indicesObras[i];
+        Obra &o = obras.obtener(idxObra);
+        Lista<Edicion> &ediciones = o.getEdiciones();
+        int nEdiciones = ediciones.getNumElem();
+
+        if (nEdiciones > 0)
+        {
+            cout << "Obra: " << o.getTitulo() << endl;
+
+            int *indicesEdiciones = new int[nEdiciones];
+            for (int j = 0; j < nEdiciones; ++j)
+            {
+                indicesEdiciones[j] = j;
+            }
+
+            // Shell sort
+            for (int gap_ed = nEdiciones / 2; gap_ed > 0; gap_ed /= 2)
+            {
+                for (int iEd = gap_ed; iEd < nEdiciones; iEd++)
+                {
+                    int temp = indicesEdiciones[iEd];
+                    int jEd;
+                    for (jEd = iEd; jEd >= gap_ed; jEd -= gap_ed)
+                    {
+                        int prev_idx = indicesEdiciones[jEd - gap_ed];
+                        int num1 = ediciones.obtener(prev_idx).getNumero();
+                        int num2 = ediciones.obtener(temp).getNumero();
+                        if (num1 <= num2)
+                            break;
+                        indicesEdiciones[jEd] = prev_idx;
+                    }
+                    indicesEdiciones[jEd] = temp;
+                }
+            }
+
+            for (int j = 0; j < nEdiciones; ++j)
+            {
+                int idxEd = indicesEdiciones[j];
+                Edicion &e = ediciones.obtener(idxEd);
+                cout << "  Edición #" << e.getNumero()
+                     << " - Editorial ID: " << e.getIdEditorial()
+                     << " - Fecha: " << e.getFechaPublicacion().toString()
+                     << " - Ciudad: " << e.getCiudad() << endl;
+            }
+
+            delete[] indicesEdiciones;
+        }
+    }
+
+    delete[] indicesObras;
+}
+
+void Gestor::obrasPorAutor()
+{
+    cin.ignore();
+    string nombreCompleto;
+    cout << "Nombre completo del autor (\"Nombre Apellido\"): ";
+    getline(cin, nombreCompleto);
+
+    size_t pos = nombreCompleto.find_last_of(' ');
+    if (pos == string::npos)
+    {
+        cout << "Formato invalido\n";
+        return;
+    }
+    string nombre = nombreCompleto.substr(0, pos);
+    string apellido = nombreCompleto.substr(pos + 1);
+
+    Lista<Autor *> autoresConApellido;
+    for (int i = 0; i < autores.getNumElem(); ++i)
+    {
+        if (autores.obtener(i).getApellido() == apellido)
+        {
+            autoresConApellido.insertarFinal(&autores.obtener(i));
+        }
+    }
+
+    if (autoresConApellido.getNumElem() == 0)
     {
         cout << "Autor no encontrado.\n";
         return;
     }
+
+    int idAutor;
+    if (autoresConApellido.getNumElem() == 1)
+    {
+        idAutor = autoresConApellido.obtener(0)->getId();
+    }
+    else
+    {
+        cout << "Se encontraron " << autoresConApellido.getNumElem()
+             << " autores con el apellido '" << apellido << "'. Seleccione uno:\n";
+
+        for (int i = 0; i < autoresConApellido.getNumElem(); ++i)
+        {
+            Autor *a = autoresConApellido.obtener(i);
+            cout << "id: " << a->getId() << " ; "
+                 << a->getNombre() << " " << a->getApellido() << endl;
+        }
+
+        cout << "Ingrese el id del autor: ";
+        cin >> idAutor;
+        cin.ignore();
+
+        bool idValido = false;
+        for (int i = 0; i < autoresConApellido.getNumElem(); ++i)
+        {
+            if (autoresConApellido.obtener(i)->getId() == idAutor)
+            {
+                idValido = true;
+                break;
+            }
+        }
+
+        if (!idValido)
+        {
+            cout << "id invalido\n";
+            return;
+        }
+    }
+
     cout << "Obras por editorial y año de publicacion:\n";
+    bool encontradas = false;
+    string nombreAutor = "";
+
+    for (int i = 0; i < autores.getNumElem(); ++i)
+    {
+        if (autores.obtener(i).getId() == idAutor)
+        {
+            nombreAutor = autores.obtener(i).getNombre() + " " + autores.obtener(i).getApellido();
+            break;
+        }
+    }
+    int totalObras = 0;
+
     for (int i = 0; i < obras.getNumElem(); ++i)
     {
-        if (obras.obtener(i).getIdAutor() == id)
+        Obra &obra = obras.obtener(i);
+        if (obra.getIdAutor() == idAutor)
         {
-            for (int j = 0; j < obras.obtener(i).getEdiciones().getNumElem(); ++j)
+            totalObras++;
+            encontradas = true;
+
+            if (obra.getEdiciones().getNumElem() == 0)
             {
-                Edicion &ed = obras.obtener(i).getEdiciones().obtener(j);
-                Editorial *e = buscarEditorialPorId(ed.getIdEditorial());
-                cout << obras.obtener(i).getTitulo() << " - "
-                     << e->getNombre() << " - "
-                     << ed.getFechaPublicacion().getYear() << endl;
+                cout << obra.getTitulo()
+                     << " ; (Sin ediciones registradas)" << endl;
+            }
+            else
+            {
+                for (int j = 0; j < obra.getEdiciones().getNumElem(); ++j)
+                {
+                    Edicion &ed = obra.getEdiciones().obtener(j);
+                    bool editorialEncontrada = false;
+                    string nombreEditorial = "(Editorial desconocida)";
+
+                    // Buscar editorial
+                    for (int k = 0; k < editoriales.getNumElem(); ++k)
+                    {
+                        if (editoriales.obtener(k).getId() == ed.getIdEditorial())
+                        {
+                            nombreEditorial = editoriales.obtener(k).getNombre();
+                            editorialEncontrada = true;
+                            break;
+                        }
+                    }
+
+                    cout << obra.getTitulo() << " ; "
+                         << nombreEditorial << " ; "
+                         << ed.getFechaPublicacion().getYear();
+
+                    if (!editorialEncontrada)
+                    {
+                        cout << " [Editorial con id " << ed.getIdEditorial() << " no registrada]";
+                    }
+
+                    cout << endl;
+                }
             }
         }
     }
+
+    if (!encontradas)
+    {
+        cout << nombreAutor << " no tiene obras registradas en el sistema.\n";
+    }
+    else
+    {
+        cout << "No hay mas obras de " << nombreAutor << ", el total de sus obras fue " << totalObras << "\n";
+    }
 }
 
-void Gestor::consulta2_nombresObrasPorTipo()
+void Gestor::nombresObrasPorTipo()
 {
-    int id;
-    cout << "ID del autor: ";
-    cin >> id;
-    Autor *autor = buscarAutorPorId(id);
+    cin.ignore();
+    string nombreCompleto;
+    cout << "Nombre completo del autor (\"Nombre Apellido\"): ";
+    getline(cin, nombreCompleto);
+
+    size_t pos = nombreCompleto.find_last_of(' ');
+    if (pos == string::npos)
+    {
+        cout << "Formato invalido\n";
+        return;
+    }
+    string apellido = nombreCompleto.substr(pos + 1);
+
+    Autor *autor = busquedaBinariaAutor(apellido);
     if (!autor)
     {
         cout << "Autor no encontrado.\n";
         return;
     }
-    cout << "Obras del autor por tipo de poesía:\n";
+
+    int idAutor = autor->getId();
+    cout << "Obras del autor agrupadas por tipo de poesia:\n";
+
     for (int i = 0; i < obras.getNumElem(); ++i)
     {
-        if (obras.obtener(i).getIdAutor() == id)
+        Obra &obra = obras.obtener(i);
+        if (obra.getIdAutor() == idAutor)
         {
-            cout << "Tipo: " << obras.obtener(i).getTipoPoesia() << endl;
-            for (int j = 0; j < obras.obtener(i).getEdiciones().getNumElem(); ++j)
+            cout << "Tipo: " << obra.getTipoPoesia() << endl;
+            for (int j = 0; j < obra.getEdiciones().getNumElem(); ++j)
             {
-                Edicion &ed = obras.obtener(i).getEdiciones().obtener(j);
-                cout << "\t" << obras.obtener(i).getTitulo() << " - Edición " << ed.getNumero()
-                     << " - Publicada en: " << ed.getFechaPublicacion().toString() << endl;
+                Edicion &ed = obra.getEdiciones().obtener(j);
+                cout << obra.getTitulo()
+                     << " ; Edición " << ed.getNumero()
+                     << " ; Publicada en: " << ed.getFechaPublicacion().toString() << endl;
             }
         }
     }
 }
 
-void Gestor::consulta3_autoresPorEditorial()
+void Gestor::autoresPorEditorial()
 {
-    string idEd;
-    cout << "ID de la editorial: ";
-    cin >> idEd;
-    int id = stoi(idEd);
+    string nombreEditorial;
+    cin.ignore();
+    cout << "Nombre de la editorial: ";
+    getline(cin, nombreEditorial);
 
-    Editorial *editorial = buscarEditorialPorId(id);
+    Editorial *editorial = busquedaBinariaEditorial(nombreEditorial);
     if (!editorial)
     {
         cout << "Editorial no encontrada.\n";
         return;
     }
 
-    cout << "Autores publicados por la editorial " << editorial->getNombre() << "\n";
+    int idEditorial = editorial->getId();
+    int totalAutores = 0;
+    cout << "Autores publicados por la editorial \"" << editorial->getNombre() << "\":\n";
 
     for (int i = 0; i < autores.getNumElem(); ++i)
     {
         int idAutor = autores.obtener(i).getId();
         bool publicado = false;
+
         for (int j = 0; j < obras.getNumElem(); ++j)
         {
             if (obras.obtener(j).getIdAutor() == idAutor)
             {
                 for (int k = 0; k < obras.obtener(j).getEdiciones().getNumElem(); ++k)
                 {
-                    if (obras.obtener(j).getEdiciones().obtener(k).getIdEditorial() == id)
+                    if (obras.obtener(j).getEdiciones().obtener(k).getIdEditorial() == idEditorial)
                     {
                         publicado = true;
+                        totalAutores++;
                         break;
                     }
                 }
             }
+            if (publicado)
+                break;
         }
+
         if (publicado)
         {
             Autor &a = autores.obtener(i);
-            cout << a.getNombre() << " " << a.getApellido() << " - Nacido en: "
-                 << a.getCiudadNacimiento() << ", " << a.getPaisNacimiento()
-                 << " - Reside en: " << a.getCiudadResidencia()
-                 << " - Año inicio: " << a.getYearInicioLiteratura() << endl;
+            cout << a.getNombre() << " " << a.getApellido()
+                 << "; Nacido en: " << a.getCiudadNacimiento() << ", " << a.getPaisNacimiento()
+                 << "; Reside en: " << a.getCiudadResidencia()
+                 << "; Año inicio en la literatura: " << a.getYearInicioLiteratura() << '\n';
         }
     }
+    cout << "Total de autores publicados por la editorial: " << totalAutores << endl;
 }
 
-void Gestor::consulta4_editorialesPorPoetas(int umbral) {
+void Gestor::editorialesPorPoetas(int umbral)
+{
     cout << "Editoriales con al menos " << umbral << " poetas:\n";
-    for (int i = 0; i < editoriales.getNumElem(); ++i) {
-        Editorial &e = editoriales.obtener(i);
-        vector<int> autoresPublicados;
 
-        for (int j = 0; j < obras.getNumElem(); ++j) {
-            Obra &o = obras.obtener(j);
-            for (int k = 0; k < o.getEdiciones().getNumElem(); ++k) {
-                if (o.getEdiciones().obtener(k).getIdEditorial() == e.getId()) {
-                    if (find(autoresPublicados.begin(), autoresPublicados.end(), o.getIdAutor()) == autoresPublicados.end()) {
-                        autoresPublicados.push_back(o.getIdAutor());
+    for (int i = 0; i < editoriales.getNumElem(); ++i)
+    {
+        Editorial &editorial = editoriales.obtener(i);
+        Lista<int> autoresPublicados;
+
+        for (int j = 0; j < obras.getNumElem(); ++j)
+        {
+            Obra &obra = obras.obtener(j);
+
+            for (int k = 0; k < obra.getEdiciones().getNumElem(); ++k)
+            {
+                Edicion &ed = obra.getEdiciones().obtener(k);
+
+                if (ed.getIdEditorial() == editorial.getId())
+                {
+                    bool yaContado = false;
+                    for (int a = 0; a < autoresPublicados.getNumElem(); ++a)
+                    {
+                        if (autoresPublicados.obtener(a) == obra.getIdAutor())
+                        {
+                            yaContado = true;
+                            break;
+                        }
                     }
+
+                    if (!yaContado)
+                    {
+                        autoresPublicados.insertarFinal(obra.getIdAutor());
+                    }
+
+                    break;
                 }
             }
         }
 
-        if ((int)autoresPublicados.size() >= umbral) {
-            cout << "- " << e.getNombre() << " (" << autoresPublicados.size() << " poetas)\n";
+        if (autoresPublicados.getNumElem() >= umbral)
+        {
+            cout << editorial.getNombre() << " (" << autoresPublicados.getNumElem() << " poetas)\n";
         }
     }
 }
 
-void Gestor::consulta5_generoPorEditorial() {
-    cout << "Distribución por género de autores por editorial:\n";
-    for (int i = 0; i < editoriales.getNumElem(); ++i) {
-        Editorial &e = editoriales.obtener(i);
-        vector<int> idsAutores;
-        for (int j = 0; j < obras.getNumElem(); ++j) {
-            Obra &o = obras.obtener(j);
-            for (int k = 0; k < o.getEdiciones().getNumElem(); ++k) {
-                if (o.getEdiciones().obtener(k).getIdEditorial() == e.getId()) {
-                    if (find(idsAutores.begin(), idsAutores.end(), o.getIdAutor()) == idsAutores.end()) {
-                        idsAutores.push_back(o.getIdAutor());
+void Gestor::generoPorEditorial()
+{
+    cout << "Distribucion por generos de autores por editorial:\n";
+
+    for (int i = 0; i < editoriales.getNumElem(); ++i)
+    {
+        Editorial &editorial = editoriales.obtener(i);
+        Lista<int> idsAutores;
+
+        for (int j = 0; j < obras.getNumElem(); ++j)
+        {
+            Obra &obra = obras.obtener(j);
+
+            for (int k = 0; k < obra.getEdiciones().getNumElem(); ++k)
+            {
+                Edicion &ed = obra.getEdiciones().obtener(k);
+
+                if (ed.getIdEditorial() == editorial.getId())
+                {
+                    bool yaExiste = false;
+                    for (int x = 0; x < idsAutores.getNumElem(); ++x)
+                    {
+                        if (idsAutores.obtener(x) == obra.getIdAutor())
+                        {
+                            yaExiste = true;
+                            break;
+                        }
                     }
+                    if (!yaExiste)
+                        idsAutores.insertarFinal(obra.getIdAutor());
                 }
             }
         }
 
         int hombres = 0, mujeres = 0;
-        for (int idAutor : idsAutores) {
-            Autor *a = buscarAutorPorId(idAutor);
-            if (a) {
-                if (a->getSexo() == "M") hombres++;
-                else if (a->getSexo() == "F") mujeres++;
-            }
-        }
 
-        cout << "- " << e.getNombre() << ": Hombres = " << hombres << ", Mujeres = " << mujeres << '\n';
-    }
-}
-
-void Gestor::consulta6_autoresPorEdadYFormacion(int edadMin, int edadMax, string formacion) {
-    cout << "Autores con formación '" << formacion << "' y edad entre " << edadMin << " y " << edadMax << ":\n";
-
-    for (int i = 0; i < autores.getNumElem(); ++i) {
-        Autor &a = autores.obtener(i);
-        int edad = a.calcularEdad();
-        if (edad >= edadMin && edad <= edadMax && a.getFormacionAcademica() == formacion) {
-            cout << a.getNombre() << " " << a.getApellido()
-                 << " - Edad: " << edad
-                 << " - Formación: " << a.getFormacionAcademica() << '\n';
-        }
-    }
-}
-
-void Gestor::consulta7_autoresPorPoesiaYEditorial(string tipo, int idEditorial) {
-    cout << "Autores que escriben poesía tipo '" << tipo << "' y han publicado con la editorial ID " << idEditorial << ":\n";
-
-    vector<int> autoresFiltrados;
-
-    for (int i = 0; i < obras.getNumElem(); ++i) {
-        Obra &o = obras.obtener(i);
-        if (o.getTipoPoesia() == tipo) {
-            for (int j = 0; j < o.getEdiciones().getNumElem(); ++j) {
-                if (o.getEdiciones().obtener(j).getIdEditorial() == idEditorial) {
-                    if (find(autoresFiltrados.begin(), autoresFiltrados.end(), o.getIdAutor()) == autoresFiltrados.end()) {
-                        autoresFiltrados.push_back(o.getIdAutor());
-                    }
+        for (int i = 0; i < idsAutores.getNumElem(); ++i)
+        {
+            int idAutor = idsAutores.obtener(i);
+            for (int j = 0; j < autores.getNumElem(); ++j)
+            {
+                if (autores.obtener(j).getId() == idAutor)
+                {
+                    string sexo = autores.obtener(j).getSexo();
+                    if (sexo == "M")
+                        hombres++;
+                    else if (sexo == "F")
+                        mujeres++;
+                    break;
                 }
             }
         }
-    }
 
-    for (int idAutor : autoresFiltrados) {
-        Autor *a = buscarAutorPorId(idAutor);
-        if (a) {
-            cout << "- " << a->getNombre() << " " << a->getApellido() << '\n';
+        cout << editorial.getNombre()
+             << ": Hombres = " << hombres
+             << "; Mujeres = " << mujeres << '\n';
+    }
+}
+
+void Gestor::autoresPorEdadYFormacion(int edadMin, int edadMax, string formacion)
+{
+    cout << "Autores con formacion '" << formacion << "' y edad entre " << edadMin << " y " << edadMax << ":\n";
+
+    for (int i = 0; i < autores.getNumElem(); ++i)
+    {
+        Autor &autor = autores.obtener(i);
+        int edad = autor.calcularEdad();
+
+        if (edad >= edadMin && edad <= edadMax && autor.getFormacionAcademica() == formacion)
+        {
+            cout << autor.getNombre() << " " << autor.getApellido()
+                 << " ; Edad: " << edad
+                 << " ; Formacion: " << autor.getFormacionAcademica() << '\n';
         }
     }
 }
 
+void Gestor::autoresPorPoesiaYEditorial(string tipo, int idEditorial)
+{
+    cout << "Autores que escriben poesia tipo '" << tipo
+         << "' y han publicado con la editorial id " << idEditorial << ":\n";
 
-// ----------------------------- MENÚ -----------------------------
+    for (int i = 0; i < autores.getNumElem(); ++i)
+    {
+        int idAutor = autores.obtener(i).getId();
+        bool coincide = false;
+
+        for (int j = 0; j < obras.getNumElem(); ++j)
+        {
+            Obra &o = obras.obtener(j);
+            if (o.getIdAutor() == idAutor && o.getTipoPoesia() == tipo)
+            {
+                for (int k = 0; k < o.getEdiciones().getNumElem(); ++k)
+                {
+                    if (o.getEdiciones().obtener(k).getIdEditorial() == idEditorial)
+                    {
+                        coincide = true;
+                        break;
+                    }
+                }
+            }
+            if (coincide)
+                break;
+        }
+
+        if (coincide)
+        {
+            Autor &a = autores.obtener(i);
+            cout << "- " << a.getNombre() << " " << a.getApellido() << '\n';
+        }
+    }
+}
 
 void Gestor::menu()
 {
     int opcion;
-    do
+    while (true)
     {
-        cout << "\n--- MENÚ PRINCIPAL ---\n";
-        cout << "1. Gestión de datos\n";
+        cout << "\nMenu Principal:\n";
+        cout << "1. Gestion de datos\n";
         cout << "2. Consultas\n";
         cout << "0. Salir\n";
-        cout << "Seleccione una opción: ";
+        cout << "Seleccione una opcion: ";
         cin >> opcion;
+
+        if (opcion == 0)
+        {
+            cout << "Saliendo del programa\n";
+            guardarDatos();
+            break;
+        }
+
         switch (opcion)
         {
         case 1:
         {
-            int subop;
-            cout << "\n--- Gestión de datos ---\n";
-            cout << "1. Listar autores\n";
-            cout << "2. Listar editoriales\n";
-            cout << "3. Listar obras\n";
-            cout << "Seleccione una opción: ";
-            cin >> subop;
-            switch (subop)
+            int opcion2;
+            cout << "\nGestion de datos\n";
+            cout << "1. Autores\n";
+            cout << "2. Editoriales\n";
+            cout << "3. Obras\n";
+            cout << "4. Ediciones\n";
+            cout << "Seleccione una opcion: ";
+            cin >> opcion2;
+
+            switch (opcion2)
             {
             case 1:
-                listarAutores();
+            {
+                int opcionAutor;
+                cout << "\nGestion de Autores\n";
+                cout << "1. Listar\n";
+                cout << "2. Agregar\n";
+                cout << "3. Eliminar\n";
+                cout << "4. Modificar\n";
+                cout << "Seleccione una opcion: ";
+                cin >> opcionAutor;
+
+                switch (opcionAutor)
+                {
+                case 1:
+                    listaAutores();
+                    break;
+                case 2:
+                {
+                    int id, añoInicio, añoPrimeraObra;
+                    string nombre, apellido, sexo, fechaNacStr, ciudadNac, pais, ciudadRes, formacion;
+                    cout << "ID: ";
+                    cin >> id;
+                    cin.ignore();
+                    cout << "Nombre: ";
+                    getline(cin, nombre);
+                    cout << "Apellido: ";
+                    getline(cin, apellido);
+                    cout << "Sexo (M/F): ";
+                    getline(cin, sexo);
+                    cout << "Fecha nacimiento (YYYY-MM-DD): ";
+                    getline(cin, fechaNacStr);
+                    cout << "Ciudad nacimiento: ";
+                    getline(cin, ciudadNac);
+                    cout << "Pais nacimiento: ";
+                    getline(cin, pais);
+                    cout << "Ciudad residencia: ";
+                    getline(cin, ciudadRes);
+                    cout << "Formacion academica: ";
+                    getline(cin, formacion);
+                    cout << "Año inicio literatura: ";
+                    cin >> añoInicio;
+                    cout << "Año primera obra: ";
+                    cin >> añoPrimeraObra;
+                    Fecha fNac(fechaNacStr);
+                    agregarAutor(Autor(id, nombre, apellido, sexo, fNac, ciudadNac, pais, ciudadRes, formacion, añoInicio, añoPrimeraObra));
+                    break;
+                }
+                case 3:
+                {
+                    string nombreCompleto;
+                    cin.ignore();
+                    cout << "Nombre completo del autor a eliminar (\"Nombre Apellido\"): ";
+                    getline(cin, nombreCompleto);
+
+                    size_t pos = nombreCompleto.find_last_of(' ');
+                    if (pos == string::npos)
+                    {
+                        cout << "Formato inválido.\n";
+                        break;
+                    }
+                    string apellido = nombreCompleto.substr(pos + 1);
+
+                    if (eliminarAutor(apellido))
+                        cout << "Autor eliminado.\n";
+                    else
+                        cout << "Autor no encontrado.\n";
+                    break;
+                }
+                case 4:
+                {
+                    string nombreCompleto;
+                    cin.ignore();
+                    cout << "Nombre completo del autor a modificar (\"Nombre Apellido\"): ";
+                    getline(cin, nombreCompleto);
+
+                    size_t pos = nombreCompleto.find_last_of(' ');
+                    if (pos == string::npos)
+                    {
+                        cout << "Formato inválido.\n";
+                        break;
+                    }
+                    string apellido = nombreCompleto.substr(pos + 1);
+
+                    Autor *autor = busquedaBinariaAutor(apellido);
+                    if (!autor)
+                    {
+                        cout << "Autor no encontrado.\n";
+                        break;
+                    }
+
+                    string nuevoNombre, nuevoApellido, sexo, fechaNacStr, ciudadNac, pais, ciudadRes, formacion;
+                    int añoInicio, añoPrimeraObra;
+
+                    cout << "Nuevo nombre: ";
+                    getline(cin, nuevoNombre);
+                    cout << "Nuevo apellido: ";
+                    getline(cin, nuevoApellido);
+                    cout << "Nuevo sexo (M/F): ";
+                    getline(cin, sexo);
+                    cout << "Nueva fecha nacimiento (YYYY-MM-DD): ";
+                    getline(cin, fechaNacStr);
+                    cout << "Ciudad nacimiento: ";
+                    getline(cin, ciudadNac);
+                    cout << "Pais nacimiento: ";
+                    getline(cin, pais);
+                    cout << "Ciudad residencia: ";
+                    getline(cin, ciudadRes);
+                    cout << "Formacion academica: ";
+                    getline(cin, formacion);
+                    cout << "Año inicio literatura: ";
+                    cin >> añoInicio;
+                    cout << "Año primera obra: ";
+                    cin >> añoPrimeraObra;
+
+                    Fecha fNac(fechaNacStr);
+                    Autor nuevo(autor->getId(), nuevoNombre, nuevoApellido, sexo, fNac,
+                                ciudadNac, pais, ciudadRes, formacion, añoInicio, añoPrimeraObra);
+
+                    if (modificarAutor(apellido, nuevo))
+                        cout << "Autor modificado.\n";
+                    else
+                        cout << "Error al modificar autor.\n";
+                    break;
+                }
+                default:
+                    cout << "Opcion invalida.\n";
+                }
                 break;
+            }
             case 2:
-                listarEditoriales();
+            {
+                int opcionEd;
+                cout << "\nGestion de Editoriales\n";
+                cout << "1. Listar\n";
+                cout << "2. Agregar\n";
+                cout << "3. Eliminar\n";
+                cout << "4. Modificar\n";
+                cout << "Seleccione una opcion: ";
+                cin >> opcionEd;
+
+                switch (opcionEd)
+                {
+                case 1:
+                    listaEditoriales();
+                    break;
+                case 2:
+                {
+                    int id;
+                    string nombre, ciudad, pais;
+                    cout << "ID: ";
+                    cin >> id;
+                    cin.ignore();
+                    cout << "Nombre: ";
+                    getline(cin, nombre);
+                    cout << "Ciudad: ";
+                    getline(cin, ciudad);
+                    cout << "Pais: ";
+                    getline(cin, pais);
+                    agregarEditorial(Editorial(id, nombre, ciudad, pais));
+                    break;
+                }
+                case 3:
+                {
+                    string nombre;
+                    cin.ignore();
+                    cout << "Nombre de la editorial a eliminar: ";
+                    getline(cin, nombre);
+                    if (eliminarEditorial(nombre))
+                        cout << "Editorial eliminada.\n";
+                    else
+                        cout << "Editorial no encontrada.\n";
+                    break;
+                }
+                case 4:
+                {
+                    string nombre;
+                    cin.ignore();
+                    cout << "Nombre de la editorial a modificar: ";
+                    getline(cin, nombre);
+                    Editorial *editorial = busquedaBinariaEditorial(nombre);
+                    if (!editorial)
+                    {
+                        cout << "Editorial no encontrada.\n";
+                        break;
+                    }
+                    string ciudad, pais;
+                    cout << "Nuevo nombre: ";
+                    getline(cin, nombre);
+                    cout << "Nueva ciudad: ";
+                    getline(cin, ciudad);
+                    cout << "Nuevo pais: ";
+                    getline(cin, pais);
+                    modificarEditorial(editorial->getId(), Editorial(editorial->getId(), nombre, ciudad, pais));
+                    break;
+                }
+                default:
+                    cout << "Opcion invalida.\n";
+                }
                 break;
+            }
             case 3:
-                listarObras();
+            {
+                int opcionObra;
+                cout << "\nGestion de Obras\n";
+                cout << "1. Listar\n";
+                cout << "2. Agregar\n";
+                cout << "3. Eliminar\n";
+                cout << "4. Modificar\n";
+                cout << "Seleccione una opcion: ";
+                cin >> opcionObra;
+
+                switch (opcionObra)
+                {
+                case 1:
+                    listaObras();
+                    break;
+                case 2:
+                {
+                    string titulo, tipo, nombreCompleto;
+                    cin.ignore();
+                    cout << "Titulo: ";
+                    getline(cin, titulo);
+                    cout << "Tipo de poesia: ";
+                    getline(cin, tipo);
+                    cout << "Nombre completo del autor (\"Nombre Apellido\"): ";
+                    getline(cin, nombreCompleto);
+
+                    size_t pos = nombreCompleto.find_last_of(' ');
+                    if (pos == string::npos)
+                    {
+                        cout << "Formato inválido.\n";
+                        break;
+                    }
+                    string apellido = nombreCompleto.substr(pos + 1);
+
+                    Autor *autor = busquedaBinariaAutor(apellido);
+                    if (!autor)
+                    {
+                        cout << "Autor no encontrado.\n";
+                        break;
+                    }
+                    agregarObra(Obra(autor->getId(), titulo, tipo));
+                    break;
+                }
+                case 3:
+                {
+                    string titulo;
+                    cin.ignore();
+                    cout << "Titulo de la obra a eliminar: ";
+                    getline(cin, titulo);
+                    if (eliminarObra(titulo))
+                        cout << "Obra eliminada.\n";
+                    else
+                        cout << "Obra no encontrada.\n";
+                    break;
+                }
+                case 4:
+                {
+                    string titulo;
+                    cin.ignore();
+                    cout << "Titulo de la obra a modificar: ";
+                    getline(cin, titulo);
+                    for (int i = 0; i < obras.getNumElem(); ++i)
+                    {
+                        if (obras.obtener(i).getTitulo() == titulo)
+                        {
+                            string nuevoTipo, nuevoAutorCompleto;
+                            cout << "Nuevo tipo de poesia: ";
+                            getline(cin, nuevoTipo);
+                            cout << "Nombre completo del nuevo autor (\"Nombre Apellido\"): ";
+                            getline(cin, nuevoAutorCompleto);
+
+                            size_t pos = nuevoAutorCompleto.find_last_of(' ');
+                            if (pos == string::npos)
+                            {
+                                cout << "Formato inválido.\n";
+                                break;
+                            }
+                            string apellido = nuevoAutorCompleto.substr(pos + 1);
+
+                            Autor *autor = busquedaBinariaAutor(apellido);
+                            if (!autor)
+                            {
+                                cout << "Autor no encontrado.\n";
+                                break;
+                            }
+                            Obra nueva(autor->getId(), titulo, nuevoTipo);
+                            modificarObra(titulo, nueva);
+                            break;
+                        }
+                    }
+                    break;
+                }
+                default:
+                    cout << "Opcion invalida.\n";
+                }
                 break;
+            }
+            case 4:
+            {
+                int opcionEdicion;
+                cout << "\nGestion de Ediciones\n";
+                cout << "1. Listar\n";
+                cout << "2. Agregar\n";
+                cout << "3. Eliminar\n";
+                cout << "4. Modificar\n";
+                cout << "Seleccione una opcion: ";
+                cin >> opcionEdicion;
+
+                switch (opcionEdicion)
+                {
+                case 1:
+                    listaEdiciones();
+                    break;
+                case 2:
+                {
+                    string tituloObra, fechaStr, ciudad, idEditorialStr;
+                    int numero, idEditorial;
+                    cin.ignore();
+                    cout << "Titulo de la obra: ";
+                    getline(cin, tituloObra);
+                    cout << "Numero de edicion: ";
+                    cin >> numero;
+                    cin.ignore();
+                    cout << "Fecha publicacion (YYYY-MM-DD): ";
+                    getline(cin, fechaStr);
+                    cout << "ID Editorial: ";
+                    getline(cin, idEditorialStr);
+                    idEditorial = stoi(idEditorialStr);
+                    cout << "Ciudad de publicacion: ";
+                    getline(cin, ciudad);
+
+                    int idAutor = -1;
+                    for (int i = 0; i < obras.getNumElem(); ++i)
+                    {
+                        if (obras.obtener(i).getTitulo() == tituloObra)
+                        {
+                            idAutor = obras.obtener(i).getIdAutor();
+                            break;
+                        }
+                    }
+
+                    if (idAutor == -1)
+                    {
+                        cout << "Obra no encontrada.\n";
+                        break;
+                    }
+
+                    Fecha fecha(fechaStr);
+                    Edicion nuevaEdicion(numero, fecha, idEditorial, idAutor, ciudad, tituloObra);
+                    agregarEdicion(nuevaEdicion);
+                    cout << "Edicion agregada.\n";
+                    break;
+                }
+                case 3:
+                {
+                    string titulo;
+                    int numero;
+                    cin.ignore();
+                    cout << "Titulo de la obra: ";
+                    getline(cin, titulo);
+                    cout << "Numero de edicion a eliminar: ";
+                    cin >> numero;
+
+                    if (eliminarEdicion(titulo, numero))
+                        cout << "Edicion eliminada.\n";
+                    else
+                        cout << "Edicion no encontrada.\n";
+                    break;
+                }
+                case 4:
+                {
+                    string titulo;
+                    int numero;
+                    cin.ignore();
+                    cout << "Titulo de la obra: ";
+                    getline(cin, titulo);
+                    cout << "Numero de edicion a modificar: ";
+                    cin >> numero;
+
+                    Edicion *edicionExistente = nullptr;
+                    for (int i = 0; i < obras.getNumElem(); ++i)
+                    {
+                        if (obras.obtener(i).getTitulo() == titulo)
+                        {
+                            Lista<Edicion> &ediciones = obras.obtener(i).getEdiciones();
+                            for (int j = 0; j < ediciones.getNumElem(); ++j)
+                            {
+                                if (ediciones.obtener(j).getNumero() == numero)
+                                {
+                                    edicionExistente = &ediciones.obtener(j);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!edicionExistente)
+                    {
+                        cout << "Edicion no encontrada.\n";
+                        break;
+                    }
+
+                    string nuevaFechaStr, nuevaCiudad, nuevoIdEditorialStr;
+                    int nuevoIdEditorial;
+                    cout << "Nuevo numero de edicion: ";
+                    cin >> numero;
+                    cin.ignore();
+                    cout << "Nueva fecha publicacion (YYYY-MM-DD): ";
+                    getline(cin, nuevaFechaStr);
+                    cout << "Nuevo ID Editorial: ";
+                    getline(cin, nuevoIdEditorialStr);
+                    nuevoIdEditorial = stoi(nuevoIdEditorialStr);
+                    cout << "Nueva ciudad de publicacion: ";
+                    getline(cin, nuevaCiudad);
+
+                    Fecha nuevaFecha(nuevaFechaStr);
+                    Edicion nuevaEdicion(
+                        numero,
+                        nuevaFecha,
+                        nuevoIdEditorial,
+                        edicionExistente->getIdAutor(),
+                        nuevaCiudad,
+                        titulo);
+
+                    if (modificarEdicion(titulo, edicionExistente->getNumero(), nuevaEdicion))
+                        cout << "Edicion modificada.\n";
+                    else
+                        cout << "Error al modificar edicion.\n";
+                    break;
+                }
+                default:
+                    cout << "Opcion invalida.\n";
+                }
+                break;
+            }
             default:
-                cout << "Opción inválida.\n";
-                break;
+                cout << "Opcion invalida.\n";
             }
             break;
         }
+
         case 2:
         {
-            int subop;
-            cout << "\n--- Consultas ---\n";
-            cout << "1. Consulta 1: Obras por autor\n";
-            cout << "2. Consulta 2: Nombres de obras por tipo de poesía\n";
-            cout << "3. Consulta 3: Autores por editorial\n";
-            cout << "4. Consulta 4: Editoriales con más de N poetas\n";
-            cout << "5. Consulta 5: Género por editorial\n";
-            cout << "6. Consulta 6: Autores por edad y formación\n";
-            cout << "7. Consulta 7: Autores por tipo de poesía y editorial\n";
-            cout << "Seleccione una opción: ";
-            cin >> subop;
-            switch (subop)
+            int opcionConsulta;
+            cout << "\nConsultas:\n";
+            cout << "1. Obras por autor\n";
+            cout << "2. Nombres de obras por tipo de poesia\n";
+            cout << "3. Autores por editorial\n";
+            cout << "4. Editoriales con al menos X poetas\n";
+            cout << "5. Genero por editorial\n";
+            cout << "6. Autores por edad y formacion\n";
+            cout << "7. Autores por tipo de poesia y editorial\n";
+            cout << "Seleccione una opcion: ";
+            cin >> opcionConsulta;
+            switch (opcionConsulta)
             {
             case 1:
-                consulta1_obrasPorAutor();
+                obrasPorAutor();
                 break;
             case 2:
-                consulta2_nombresObrasPorTipo();
+                nombresObrasPorTipo();
                 break;
             case 3:
-                consulta3_autoresPorEditorial();
+                autoresPorEditorial();
                 break;
             case 4:
             {
                 int umbral;
-                cout << "Ingrese el número mínimo de poetas: ";
+                cout << "Ingrese el numero minimo de poetas: ";
                 cin >> umbral;
-                consulta4_editorialesPorPoetas(umbral);
+                editorialesPorPoetas(umbral);
                 break;
             }
             case 5:
-                consulta5_generoPorEditorial();
+                generoPorEditorial();
                 break;
             case 6:
             {
                 int min, max;
-                string form;
-                cout << "Edad mínima: ";
+                string formacion;
+                cout << "Edad minima: ";
                 cin >> min;
-                cout << "Edad máxima: ";
+                cout << "Edad maxima: ";
                 cin >> max;
-                cout << "Formación: ";
                 cin.ignore();
-                getline(cin, form);
-                consulta6_autoresPorEdadYFormacion(min, max, form);
+                cout << "Formacion academica: ";
+                getline(cin, formacion);
+                autoresPorEdadYFormacion(min, max, formacion);
                 break;
             }
             case 7:
             {
                 string tipo;
-                int idEd;
-                cout << "Tipo de poesía: ";
+                string nombreEditorial;
+                cout << "Tipo de poesia: ";
                 cin.ignore();
                 getline(cin, tipo);
-                cout << "ID de editorial: ";
-                cin >> idEd;
-                consulta7_autoresPorPoesiaYEditorial(tipo, idEd);
+                cout << "Nombre de la editorial: ";
+                getline(cin, nombreEditorial);
+                Editorial *editorial = busquedaBinariaEditorial(nombreEditorial);
+                if (editorial)
+                    autoresPorPoesiaYEditorial(tipo, editorial->getId());
+                else
+                    cout << "Editorial no encontrada.\n";
                 break;
             }
             default:
-                cout << "Opción inválida.\n";
-                break;
+                cout << "Opcion invalida.\n";
             }
             break;
         }
-        case 0:
-            cout << "Saliendo...\n";
-            break;
         default:
-            cout << "Opción inválida.\n";
-            break;
+            cout << "Opcion invalida.\n";
         }
-    } while (opcion != 0);
+    }
 }
 
 #endif

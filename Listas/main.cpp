@@ -9,5 +9,6 @@ int main() {
     } catch (const exception& e) {
         cerr << "Error al iniciar el programa: " << e.what() << endl;
     }
+    system("PAUSE");
     return 0;
 }

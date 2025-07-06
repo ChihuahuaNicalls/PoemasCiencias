@@ -22,10 +22,10 @@ public:
         this->pais = pais;
     }
 
-    int getId() { return id; }
-    string getNombre() { return nombre; }
-    string getCiudad() { return ciudad; }
-    string getPais() { return pais; }
+    int getId() const { return id; }
+    string getNombre() const { return nombre; }
+    string getCiudad() const { return ciudad; }
+    string getPais() const { return pais; }
 
     void setId(int id) { this->id = id; }
     void setNombre(string nombre) { this->nombre = nombre; }

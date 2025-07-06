@@ -23,14 +23,14 @@ public:
         this->tipo = tipo;
     }
 
-    int getIdAutor() { return idAutor; }
-    string getTitulo() { return titulo; }
-    string getTipoPoesia() { return tipo; }
+    int getIdAutor() const { return idAutor; }
+    string getTitulo() const { return titulo; }
+    string getTipoPoesia() const { return tipo; }
     Lista<Edicion>& getEdiciones() { return ediciones; }
 
     void setIdAutor(int idAutor) { this->idAutor = idAutor; }
     void setTitulo(string titulo) { this->titulo = titulo; }
-    void setTipo(string tipo) { this->tipo = tipo; }
+    void setTipoPoesia(string tipo) { this->tipo = tipo; }
     void agregarEdicion(Edicion edicion)
     {
         ediciones.insertarFinal(edicion);

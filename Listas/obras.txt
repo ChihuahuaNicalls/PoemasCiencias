@@ -1,0 +1,175 @@
+Baladas de alma;romance;28
+Baladas de infierno;romance;7
+Baladas de la amor;verso libre;1
+Baladas de la mar;soneto;12
+Baladas de la tarde;haiku;7
+Baladas de la tristeza;décima;2
+Baladas de la vida;verso libre;25
+Baladas de muerte;romance;16
+Baladas de noche;verso libre;21
+Baladas de odio;romance;28
+Baladas de vida;romance;5
+Baladas del soledad;himno;33
+Baladas del tristeza;haiku;12
+Canciones de cielo;décima;27
+Canciones de desesperación;himno;25
+Canciones de la alma;romance;19
+Canciones de la cielo;lira;15
+Canciones de la desesperación;octava real;20
+Canciones de la infierno;lira;17
+Canciones de la mar;octava real;21
+Canciones de la tristeza;soneto;18
+Canciones del muerte;himno;31
+Cantares de alegría;romance;17
+Cantares de amor;haiku;8
+Cantares de la cielo;himno;18
+Cantares de la muerte;himno;34
+Cantares de tarde;haiku;6
+Cantares de tierra;romance;33
+Cantares de tristeza;verso libre;16
+Cantares del alma;haiku;32
+Cantares del esperanza;octava real;25
+Cantares del infierno;romance;11
+Cantares del mar;lira;24
+Coplas de cielo;romance;35
+Coplas de la cielo;verso libre;14
+Coplas de la compañía;haiku;16
+Coplas de la día;verso libre;23
+Coplas de la esperanza;romance;22
+Coplas de la tarde;lira;4
+Coplas de la tristeza;romance;31
+Coplas de mar;octava real;4
+Coplas de vida;lira;34
+Coplas del cielo;octava real;22
+Coplas del soledad;romance;4
+Coplas del vida;lira;24
+Décimas de infierno;verso libre;32
+Décimas de la infierno;romance;12
+Décimas de la muerte;octava real;13
+Décimas de mar;himno;9
+Décimas de vida;romance;31
+Décimas del alma;décima;26
+Décimas del muerte;soneto;27
+Décimas del tristeza;romance;13
+Elegías de compañía;lira;20
+Elegías de la esperanza;romance;23
+Elegías de la mar;décima;11
+Elegías de la soledad;soneto;5
+Elegías de la tarde;himno;17
+Elegías de la tristeza;romance;21
+Estrofas de la alma;romance;20
+Estrofas de la muerte;romance;30
+Estrofas de la odio;soneto;26
+Estrofas de mar;himno;15
+Estrofas de vida;octava real;22
+Estrofas del día;haiku;16
+Haikus de desesperación;verso libre;17
+Haikus de la alma;himno;13
+Haikus de la compañía;décima;32
+Haikus de la tierra;verso libre;35
+Haikus de soledad;verso libre;34
+Haikus de tarde;himno;6
+Haikus de tierra;décima;2
+Haikus del amor;octava real;15
+Haikus del día;lira;8
+Himnos de cielo;soneto;26
+Himnos de compañía;himno;7
+Himnos de noche;soneto;31
+Himnos de tarde;décima;27
+Himnos de tristeza;himno;20
+Himnos del alma;romance;6
+Himnos del desesperación;octava real;28
+Himnos del día;lira;2
+Himnos del esperanza;romance;9
+Himnos del infierno;haiku;9
+Letanías de compañía;haiku;24
+Letanías de infierno;lira;10
+Letanías de la alma;soneto;5
+Letanías de la desesperación;décima;21
+Letanías de la día;haiku;33
+Letanías de la infierno;verso libre;10
+Letanías de la odio;verso libre;30
+Letanías del alegría;octava real;19
+Letanías del odio;décima;31
+Letanías del tierra;verso libre;32
+Letanías del vida;lira;28
+Liras de compañía;verso libre;35
+Liras de esperanza;octava real;19
+Liras de la cielo;soneto;14
+Liras de la mar;haiku;10
+Liras de la soledad;lira;12
+Liras de la tierra;octava real;15
+Liras de noche;himno;17
+Liras del día;décima;3
+Liras del mar;décima;5
+Liras del noche;romance;13
+Madrigales de la alegría;haiku;28
+Madrigales de la alma;verso libre;7
+Madrigales de la muerte;romance;30
+Madrigales de la tierra;lira;29
+Madrigales de la vida;haiku;1
+Madrigales de mar;octava real;6
+Madrigales de soledad;lira;30
+Madrigales de tristeza;octava real;20
+Madrigales del alegría;octava real;30
+Madrigales del compañía;décima;25
+Madrigales del infierno;himno;15
+Madrigales del muerte;romance;3
+Madrigales del noche;romance;25
+Madrigales del tierra;haiku;14
+Madrigales del vida;romance;32
+Odas de alegría;himno;4
+Odas de desesperación;octava real;27
+Odas de la desesperación;himno;8
+Odas de la esperanza;lira;24
+Odas del día;décima;23
+Poemas de compañía;décima;23
+Poemas de la cielo;himno;11
+Poemas de noche;verso libre;9
+Poemas de tierra;verso libre;18
+Poemas del desesperación;haiku;34
+Poemas del muerte;décima;35
+Poemas del tierra;haiku;16
+Poemas del vida;décima;23
+Rimas de compañía;himno;10
+Rimas de desesperación;octava real;5
+Rimas de la día;himno;19
+Rimas de la soledad;décima;21
+Rimas de la tarde;himno;33
+Rimas de la tierra;lira;35
+Rimas de muerte;himno;3
+Rimas de noche;romance;9
+Rimas de tarde;verso libre;2
+Rimas de tierra;romance;22
+Rimas de vida;octava real;10
+Romances de desesperación;himno;8
+Romances de esperanza;octava real;19
+Romances de la compañía;himno;33
+Romances de la día;verso libre;26
+Romances de la esperanza;octava real;11
+Romances de tierra;haiku;26
+Romances del alma;haiku;12
+Romances del compañía;lira;29
+Romances del mar;verso libre;11
+Salmos de esperanza;lira;27
+Salmos de la desesperación;romance;7
+Salmos de la muerte;lira;1
+Salmos de la tristeza;décima;24
+Salmos de noche;himno;29
+Salmos de tierra;soneto;13
+Salmos de vida;lira;3
+Sonetos de la amor;soneto;1
+Sonetos de tierra;soneto;29
+Sonetos de tristeza;soneto;18
+Sonetos de vida;soneto;14
+Sonetos del muerte;lira;14
+Sátiras de esperanza;soneto;2
+Sátiras de muerte;lira;29
+Sátiras de tristeza;verso libre;4
+Sátiras del muerte;himno;6
+Versos de desesperación;décima;22
+Versos de la noche;romance;8
+Versos de la tristeza;soneto;18
+Versos de muerte;soneto;34
+Versos del soledad;octava real;1
+Versos del tierra;romance;3
