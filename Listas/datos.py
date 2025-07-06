@@ -1,39 +1,39 @@
 import random
 from datetime import datetime
 
-# Configuración inicial
+# Configuracion inicial
 random.seed(42)  # Para reproducibilidad
 current_year = 2025
 
 # Datos de ejemplo (listas expandidas para 35 autores)
-nombres_hombres = ["Juan", "Carlos", "Luis", "Pedro", "Miguel", "Jorge", "Andrés", "Ricardo", "Fernando", "Diego", 
-                  "Gabriel", "Sergio", "Rafael", "Javier", "Martín", "Daniel", "Emilio", "Alberto", "Roberto", "Francisco",
-                  "Héctor", "Eduardo", "Manuel", "José", "Antonio", "Álvaro", "Gustavo", "Raúl", "Víctor", "Pablo",
-                  "Ignacio", "Joaquín", "Federico", "Salvador", "Guillermo", "Enrique", "Armando", "Felipe", "Rodrigo", "Arturo"]
+nombres_hombres = ["Juan", "Carlos", "Luis", "Pedro", "Miguel", "Jorge", "Andres", "Ricardo", "Fernando", "Diego", 
+                  "Gabriel", "Sergio", "Rafael", "Javier", "Martin", "Daniel", "Emilio", "Alberto", "Roberto", "Francisco",
+                  "Hector", "Eduardo", "Manuel", "Jose", "Antonio", "Alvaro", "Gustavo", "Raul", "Victor", "Pablo",
+                  "Ignacio", "Joaquin", "Federico", "Salvador", "Guillermo", "Enrique", "Armando", "Felipe", "Rodrigo", "Arturo"]
 
-nombres_mujeres = ["María", "Ana", "Laura", "Sofía", "Isabel", "Carmen", "Elena", "Lucía", "Patricia", "Adriana", 
+nombres_mujeres = ["Maria", "Ana", "Laura", "Sofia", "Isabel", "Carmen", "Elena", "Lucia", "Patricia", "Adriana", 
                   "Claudia", "Marta", "Teresa", "Rosa", "Silvia", "Paula", "Julia", "Raquel", "Diana", "Valeria",
-                  "Beatriz", "Carolina", "Natalia", "Verónica", "Lorena", "Alejandra", "Marina", "Susana", "Inés", "Olga",
-                  "Liliana", "Esther", "Rocío", "Victoria", "Jimena", "Gabriela", "Alicia", "Ruth", "Irene", "Monica"]
+                  "Beatriz", "Carolina", "Natalia", "Veronica", "Lorena", "Alejandra", "Marina", "Susana", "Ines", "Olga",
+                  "Liliana", "Esther", "Rocio", "Victoria", "Jimena", "Gabriela", "Alicia", "Ruth", "Irene", "Monica"]
 
-apellidos = ["García", "Rodríguez", "González", "Fernández", "López", "Martínez", "Sánchez", "Pérez", "Gómez", "Martín", 
-            "Jiménez", "Ruiz", "Hernández", "Díaz", "Moreno", "Álvarez", "Romero", "Alonso", "Gutiérrez", "Navarro",
-            "Torres", "Domínguez", "Vázquez", "Ramos", "Gil", "Ramírez", "Serrano", "Blanco", "Suárez", "Castro",
+apellidos = ["Garcia", "Rodriguez", "Gonzalez", "Fernandez", "Lopez", "Martinez", "Sanchez", "Perez", "Gomez", "Martin", 
+            "Jimenez", "Ruiz", "Hernandez", "Diaz", "Moreno", "Alvarez", "Romero", "Alonso", "Gutierrez", "Navarro",
+            "Torres", "Dominguez", "Vazquez", "Ramos", "Gil", "Ramirez", "Serrano", "Blanco", "Suarez", "Castro",
             "Ortega", "Rubio", "Molina", "Delgado", "Ortiz", "Medina", "Santos", "Cruz", "Morales", "Iglesias"]
 
-ciudades = ["Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", "Buenos Aires", "Córdoba", "Rosario", "Ciudad de México", 
-           "Guadalajara", "Monterrey", "Bogotá", "Medellín", "Lima", "Santiago", "Caracas", "São Paulo", "Río de Janeiro", "París", "Roma",
-           "Berlín", "Lisboa", "Ámsterdam", "Viena", "Bruselas", "Estocolmo", "Oslo", "Helsinki", "Atenas", "El Cairo",
-           "Nueva York", "Londres", "Tokio", "Pekín", "Sídney", "Toronto", "Moscú", "Estambul", "Dubái", "Singapur"]
+ciudades = ["Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", "Buenos Aires", "Cordoba", "Rosario", "Ciudad de Mexico", 
+           "Guadalajara", "Monterrey", "Bogota", "Medellin", "Lima", "Santiago", "Caracas", "São Paulo", "Rio de Janeiro", "Paris", "Roma",
+           "Berlin", "Lisboa", "amsterdam", "Viena", "Bruselas", "Estocolmo", "Oslo", "Helsinki", "Atenas", "El Cairo",
+           "Nueva York", "Londres", "Tokio", "Pekin", "Sidney", "Toronto", "Moscu", "Estambul", "Dubai", "Singapur"]
 
-paises = ["España", "Argentina", "México", "Colombia", "Perú", "Chile", "Venezuela", "Brasil", "Francia", "Italia",
-         "Alemania", "Portugal", "Holanda", "Austria", "Bélgica", "Suecia", "Noruega", "Finlandia", "Grecia", "Egipto",
-         "EE.UU.", "Reino Unido", "Japón", "China", "Australia", "Canadá", "Rusia", "Turquía", "Emiratos Árabes", "Singapur"]
+paises = ["España", "Argentina", "Mexico", "Colombia", "Peru", "Chile", "Venezuela", "Brasil", "Francia", "Italia",
+         "Alemania", "Portugal", "Holanda", "Austria", "Belgica", "Suecia", "Noruega", "Finlandia", "Grecia", "Egipto",
+         "EE.UU.", "Reino Unido", "Japon", "China", "Australia", "Canada", "Rusia", "Turquia", "Emiratos arabes", "Singapur"]
 
-formaciones = ["literatura", "artes", "ciencias sociales", "ingenierías", "áreas de la salud", "jurisprudencia", "otros"]
-tipos_poesia = ["décima", "soneto", "himno", "haiku", "romance", "octava real", "lira", "verso libre"]
+formaciones = ["literatura", "artes", "ciencias sociales", "ingenierias", "areas de la salud", "jurisprudencia", "otros"]
+tipos_poesia = ["decima", "soneto", "himno", "haiku", "romance", "octava real", "lira", "verso libre"]
 
-# Generar 5 editoriales únicas
+# Generar 5 editoriales unicas
 editoriales_data = []
 editorial_nombres = set()
 for i in range(1, 6):
@@ -41,7 +41,7 @@ for i in range(1, 6):
         nombre = random.choice(["Ediciones", "Editorial", "Libros", "Publicaciones"]) + " " + random.choice([
             "del Sur", "Norte", "Este", "Oeste", "Universal", "Continental", "Global", "Internacional", "Nacional", "Regional"
         ]) + " " + random.choice([
-            "Literaria", "Poética", "Cultural", "Artística", "Creativa", "Imaginativa", "Expresiva"
+            "Literaria", "Poetica", "Cultural", "Artistica", "Creativa", "Imaginativa", "Expresiva"
         ])
         if nombre not in editorial_nombres:
             editorial_nombres.add(nombre)
@@ -56,7 +56,7 @@ for i in range(1, 6):
         "pais": pais
     })
 
-# Generar 35 autores únicos (17 hombres y 18 mujeres)
+# Generar 35 autores unicos (17 hombres y 18 mujeres)
 autores = []
 nombres_apellidos = set()
 for i in range(1, 36):
@@ -73,7 +73,7 @@ for i in range(1, 36):
             break
     
     # Ajuste clave: asegurar que primera obra sea antes de 2025
-    año_nac = random.randint(1940, 1975)  # Nacidos como máximo en 1975
+    año_nac = random.randint(1940, 1975)  # Nacidos como maximo en 1975
     mes_nac = random.randint(1, 12)
     dia_nac = random.randint(1, 28)
     fecha_nac = f"{año_nac}-{mes_nac:02d}-{dia_nac:02d}"
@@ -85,11 +85,11 @@ for i in range(1, 36):
     
     # Asegurar inicio en literatura con tiempo suficiente
     min_edad_inicio = 18
-    max_edad_inicio = min(40, 2025 - año_nac - 5)  # Máximo 40 años pero asegurando obra antes de 2025
+    max_edad_inicio = min(40, 2025 - año_nac - 5)  # Maximo 40 años pero asegurando obra antes de 2025
     edad_inicio = random.randint(min_edad_inicio, max_edad_inicio)
     año_inicio = año_nac + edad_inicio
     
-    # Primera obra entre 1-5 años después del inicio
+    # Primera obra entre 1-5 años despues del inicio
     año_primera_obra = año_inicio + random.randint(1, 5)
     
     autores.append({
@@ -109,7 +109,7 @@ for i in range(1, 36):
 # Ordenar autores por apellido + nombre
 autores.sort(key=lambda x: (x["apellido"], x["nombre"]))
 
-# CORRECCIÓN: Asignar autores a editoriales (7 autores por editorial)
+# CORRECCIoN: Asignar autores a editoriales (7 autores por editorial)
 # Crear lista de IDs de autores
 ids_autores = [a["id"] for a in autores]
 random.shuffle(ids_autores)
@@ -121,16 +121,16 @@ for i, editorial in enumerate(editoriales_data):
     end_index = start_index + 7
     editorial_autores[editorial["id"]] = ids_autores[start_index:end_index]
 
-# Generar obras (5 por autor, 175 en total) con títulos únicos
+# Generar obras (5 por autor, 175 en total) con titulos unicos
 obras = []
 titulos_obra = set()
-titulos_base = ["Poemas", "Versos", "Canciones", "Rimas", "Sonetos", "Haikus", "Décimas", "Romances", "Liras", "Himnos",
-               "Elegías", "Odas", "Baladas", "Coplas", "Madrigales", "Cantares", "Estrofas", "Letanías", "Salmos", "Sátiras"]
+titulos_base = ["Poemas", "Versos", "Canciones", "Rimas", "Sonetos", "Haikus", "Decimas", "Romances", "Liras", "Himnos",
+               "Elegias", "Odas", "Baladas", "Coplas", "Madrigales", "Cantares", "Estrofas", "Letanias", "Salmos", "Satiras"]
 
 for autor in autores:
     for i in range(5):
         while True:
-            titulo = f"{random.choice(titulos_base)} {random.choice(['del', 'de la', 'de'])} {random.choice(['alma', 'noche', 'día', 'tarde', 'amor', 'odio', 'vida', 'muerte', 'mar', 'tierra', 'cielo', 'infierno', 'esperanza', 'desesperación', 'alegría', 'tristeza', 'soledad', 'compañía'])}"
+            titulo = f"{random.choice(titulos_base)} {random.choice(['del', 'de la', 'de'])} {random.choice(['alma', 'noche', 'dia', 'tarde', 'amor', 'odio', 'vida', 'muerte', 'mar', 'tierra', 'cielo', 'infierno', 'esperanza', 'desesperacion', 'alegria', 'tristeza', 'soledad', 'compañia'])}"
             # Asegurar unicidad
             if titulo not in titulos_obra:
                 titulos_obra.add(titulo)
@@ -144,7 +144,7 @@ for autor in autores:
             "ediciones": []
         })
 
-# Ordenar obras por título
+# Ordenar obras por titulo
 obras.sort(key=lambda x: x["titulo"])
 
 # Generar ediciones (3 por obra, 525 en total)
@@ -156,7 +156,7 @@ for obra in obras:
     # Encontrar editoriales que publiquen a este autor
     editoriales_validas = [eid for eid, aut_ids in editorial_autores.items() if autor_id in aut_ids]
     
-    # CORRECCIÓN: Verificar que hay al menos una editorial válida
+    # CORRECCIoN: Verificar que hay al menos una editorial valida
     if not editoriales_validas:
         # Si no hay editoriales, asignar una aleatoria
         editoriales_validas = [random.choice(list(editorial_autores.keys()))]
@@ -165,11 +165,11 @@ for obra in obras:
     for ed_num in range(1, 4):
         id_editorial = random.choice(editoriales_validas)
         
-        # Asegurar fecha de publicación válida (entre primera obra y 2025)
+        # Asegurar fecha de publicacion valida (entre primera obra y 2025)
         min_año = año_primera
         max_año = current_year
         
-        # Si por algún motivo min_año > max_año, corregir
+        # Si por algun motivo min_año > max_año, corregir
         if min_año > max_año:
             min_año, max_año = max_año, min_año
             
@@ -217,7 +217,7 @@ def guardar_ediciones(obras, filename):
                 "ciudad": e["ciudad"]
             })
     
-    # Ordenar por título de obra
+    # Ordenar por titulo de obra
     ediciones_planas.sort(key=lambda x: x["titulo_obra"])
     
     with open(filename, "w", encoding="utf-8") as fed:
@@ -249,4 +249,4 @@ for autor in autores[:3]:  # Mostrar primeros 3 autores como muestra
 for obra in obras[:2]:  # Mostrar primeras 2 obras
     print(f"\nObra '{obra['titulo']}':")
     for edicion in obra['ediciones']:
-        print(f"  Edición {edicion['numero']}: {edicion['fecha']} (Editorial: {edicion['id_editorial']})")
+        print(f"  Edicion {edicion['numero']}: {edicion['fecha']} (Editorial: {edicion['id_editorial']})")

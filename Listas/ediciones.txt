@@ -1,0 +1,525 @@
+Baladas de alma;1;2006-08-01;3;Singapur
+Baladas de alma;2;2006-11-03;3;El Cairo
+Baladas de alma;3;2018-02-05;3;Valencia
+Baladas de infierno;1;1991-08-04;2;Cordoba
+Baladas de infierno;2;2006-03-13;2;El Cairo
+Baladas de infierno;3;2014-12-23;2;Sidney
+Baladas de la amor;1;1999-07-21;5;Cordoba
+Baladas de la amor;2;2016-05-02;5;Viena
+Baladas de la amor;3;2018-08-08;5;Viena
+Baladas de la mar;1;2015-09-21;2;amsterdam
+Baladas de la mar;2;2017-05-07;2;Rosario
+Baladas de la mar;3;1997-11-07;2;Dubai
+Baladas de la tarde;1;1975-06-08;2;Ciudad de Mexico
+Baladas de la tarde;2;1976-09-07;2;Estambul
+Baladas de la tarde;3;2024-04-11;2;Guadalajara
+Baladas de la tristeza;1;2007-03-05;3;Sidney
+Baladas de la tristeza;2;2024-03-04;3;Barcelona
+Baladas de la tristeza;3;1999-06-26;3;Caracas
+Baladas de la vida;1;1985-03-09;1;Sevilla
+Baladas de la vida;2;2010-09-04;1;Zaragoza
+Baladas de la vida;3;2012-06-17;1;Estambul
+Baladas de muerte;1;2021-09-08;1;Singapur
+Baladas de muerte;2;2012-08-21;1;Barcelona
+Baladas de muerte;3;2023-07-14;1;Cordoba
+Baladas de noche;1;2020-08-03;2;Buenos Aires
+Baladas de noche;2;2017-03-03;2;Ciudad de Mexico
+Baladas de noche;3;2017-11-19;2;Toronto
+Baladas de odio;1;2016-10-17;3;Paris
+Baladas de odio;2;2024-10-14;3;Cordoba
+Baladas de odio;3;2005-07-15;3;Santiago
+Baladas de vida;1;2016-08-13;4;Oslo
+Baladas de vida;2;2016-07-11;4;São Paulo
+Baladas de vida;3;2010-11-16;4;Zaragoza
+Baladas del soledad;1;1991-02-14;1;Cordoba
+Baladas del soledad;2;1994-09-02;1;Estambul
+Baladas del soledad;3;1993-07-12;1;Helsinki
+Baladas del tristeza;1;2010-10-10;2;amsterdam
+Baladas del tristeza;2;2024-04-05;2;Nueva York
+Baladas del tristeza;3;1998-06-28;2;Toronto
+Canciones de cielo;1;1994-05-19;2;Santiago
+Canciones de cielo;2;2022-10-20;2;Toronto
+Canciones de cielo;3;2025-11-27;2;Rio de Janeiro
+Canciones de desesperacion;1;1995-05-23;1;Roma
+Canciones de desesperacion;2;2006-01-06;1;Guadalajara
+Canciones de desesperacion;3;1988-03-24;1;Barcelona
+Canciones de la alma;1;2012-09-07;4;Bruselas
+Canciones de la alma;2;1994-06-06;4;Viena
+Canciones de la alma;3;2011-06-25;4;Moscu
+Canciones de la cielo;1;1981-03-06;1;Singapur
+Canciones de la cielo;2;2021-02-09;1;Atenas
+Canciones de la cielo;3;2009-10-15;1;Oslo
+Canciones de la desesperacion;1;2007-09-04;5;amsterdam
+Canciones de la desesperacion;2;2001-05-22;5;Estambul
+Canciones de la desesperacion;3;2013-01-08;5;Estocolmo
+Canciones de la infierno;1;1987-04-10;4;Lima
+Canciones de la infierno;2;2003-05-11;4;Rosario
+Canciones de la infierno;3;2018-12-14;4;Bogota
+Canciones de la mar;1;2010-09-23;2;Santiago
+Canciones de la mar;2;2000-07-28;2;Valencia
+Canciones de la mar;3;1998-08-03;2;Berlin
+Canciones de la tristeza;1;2017-12-21;3;Oslo
+Canciones de la tristeza;2;1999-07-01;3;Berlin
+Canciones de la tristeza;3;2021-12-12;3;Buenos Aires
+Canciones del muerte;1;1980-04-14;1;Estambul
+Canciones del muerte;2;2007-02-13;1;Roma
+Canciones del muerte;3;1988-06-25;1;Monterrey
+Cantares de alegria;1;2019-11-04;4;Pekin
+Cantares de alegria;2;2009-06-24;4;Guadalajara
+Cantares de alegria;3;1993-03-09;4;Medellin
+Cantares de amor;1;2006-03-25;4;Zaragoza
+Cantares de amor;2;2017-11-16;4;El Cairo
+Cantares de amor;3;2011-10-21;4;Singapur
+Cantares de la cielo;1;2012-03-15;3;Zaragoza
+Cantares de la cielo;2;2020-11-10;3;Rio de Janeiro
+Cantares de la cielo;3;2014-09-03;3;Roma
+Cantares de la muerte;1;2002-01-02;2;Viena
+Cantares de la muerte;2;1978-11-28;2;Buenos Aires
+Cantares de la muerte;3;2003-10-18;2;Valencia
+Cantares de tarde;1;2024-10-21;5;Medellin
+Cantares de tarde;2;2014-08-17;5;Guadalajara
+Cantares de tarde;3;2009-02-26;5;Lisboa
+Cantares de tierra;1;2018-11-06;1;Valencia
+Cantares de tierra;2;2014-08-17;1;Pekin
+Cantares de tierra;3;2009-06-10;1;Bruselas
+Cantares de tristeza;1;2014-11-20;1;Sevilla
+Cantares de tristeza;2;1997-06-04;1;Toronto
+Cantares de tristeza;3;2011-05-24;1;Dubai
+Cantares del alma;1;2002-02-19;5;Guadalajara
+Cantares del alma;2;2000-11-23;5;Estocolmo
+Cantares del alma;3;2019-12-03;5;Roma
+Cantares del esperanza;1;2025-06-27;1;Ciudad de Mexico
+Cantares del esperanza;2;2025-11-14;1;Tokio
+Cantares del esperanza;3;1985-06-10;1;Bogota
+Cantares del infierno;1;2021-08-07;2;Santiago
+Cantares del infierno;2;2020-02-10;2;Cordoba
+Cantares del infierno;3;2024-06-25;2;Singapur
+Cantares del mar;1;2020-07-05;5;Monterrey
+Cantares del mar;2;2023-10-26;5;Monterrey
+Cantares del mar;3;2002-07-12;5;Caracas
+Coplas de cielo;1;2009-12-26;3;Atenas
+Coplas de cielo;2;2025-04-10;3;Nueva York
+Coplas de cielo;3;2014-11-19;3;Atenas
+Coplas de la cielo;1;2012-07-17;4;Pekin
+Coplas de la cielo;2;2004-04-26;4;Dubai
+Coplas de la cielo;3;2010-01-21;4;Nueva York
+Coplas de la compañia;1;1999-12-28;1;Pekin
+Coplas de la compañia;2;2011-02-25;1;Monterrey
+Coplas de la compañia;3;2021-09-05;1;Helsinki
+Coplas de la dia;1;2003-08-12;1;Barcelona
+Coplas de la dia;2;1992-07-17;1;Viena
+Coplas de la dia;3;2013-02-12;1;Santiago
+Coplas de la esperanza;1;1989-02-27;5;Lisboa
+Coplas de la esperanza;2;1977-01-10;5;Nueva York
+Coplas de la esperanza;3;2017-12-16;5;Atenas
+Coplas de la tarde;1;1998-01-09;3;Lima
+Coplas de la tarde;2;2020-02-25;3;Paris
+Coplas de la tarde;3;2012-02-02;3;Caracas
+Coplas de la tristeza;1;2014-10-15;1;Zaragoza
+Coplas de la tristeza;2;2005-10-18;1;Barcelona
+Coplas de la tristeza;3;2019-03-10;1;Helsinki
+Coplas de mar;1;2015-04-19;3;Oslo
+Coplas de mar;2;1998-09-12;3;Zaragoza
+Coplas de mar;3;2017-08-02;3;Bruselas
+Coplas de vida;1;1990-12-01;2;amsterdam
+Coplas de vida;2;1996-04-24;2;Cordoba
+Coplas de vida;3;1982-01-12;2;Sidney
+Coplas del cielo;1;2021-11-06;5;El Cairo
+Coplas del cielo;2;2009-03-26;5;Ciudad de Mexico
+Coplas del cielo;3;2014-08-02;5;Paris
+Coplas del soledad;1;1995-04-02;3;Berlin
+Coplas del soledad;2;2025-07-27;3;Sidney
+Coplas del soledad;3;2009-01-25;3;Medellin
+Coplas del vida;1;2012-01-28;5;Lisboa
+Coplas del vida;2;2004-06-14;5;Estocolmo
+Coplas del vida;3;2013-06-06;5;Londres
+Decimas de infierno;1;2004-09-09;5;Buenos Aires
+Decimas de infierno;2;1986-07-20;5;Bogota
+Decimas de infierno;3;2001-02-03;5;Berlin
+Decimas de la infierno;1;2011-08-20;2;Helsinki
+Decimas de la infierno;2;2020-06-15;2;Valencia
+Decimas de la infierno;3;2019-05-21;2;Sevilla
+Decimas de la muerte;1;2025-11-13;3;Viena
+Decimas de la muerte;2;1984-03-28;3;Dubai
+Decimas de la muerte;3;1985-03-03;3;Caracas
+Decimas de mar;1;2004-07-19;2;Valencia
+Decimas de mar;2;2024-08-12;2;Viena
+Decimas de mar;3;1985-10-05;2;Pekin
+Decimas de vida;1;1999-06-21;1;Rio de Janeiro
+Decimas de vida;2;1981-01-24;1;Bogota
+Decimas de vida;3;2007-07-18;1;Rosario
+Decimas del alma;1;2011-12-15;3;Lima
+Decimas del alma;2;2025-08-07;3;Rosario
+Decimas del alma;3;2005-08-06;3;Atenas
+Decimas del muerte;1;2007-11-12;2;Zaragoza
+Decimas del muerte;2;2006-03-23;2;Bogota
+Decimas del muerte;3;2019-04-04;2;Medellin
+Decimas del tristeza;1;1998-08-01;3;Viena
+Decimas del tristeza;2;2012-09-05;3;Singapur
+Decimas del tristeza;3;1987-05-13;3;Nueva York
+Elegias de compañia;1;2020-10-03;5;Ciudad de Mexico
+Elegias de compañia;2;1998-08-15;5;Pekin
+Elegias de compañia;3;2002-09-21;5;Estambul
+Elegias de la esperanza;1;1997-07-17;1;Sevilla
+Elegias de la esperanza;2;2022-03-10;1;Monterrey
+Elegias de la esperanza;3;2009-12-08;1;amsterdam
+Elegias de la mar;1;2025-02-09;2;Medellin
+Elegias de la mar;2;2020-11-10;2;Singapur
+Elegias de la mar;3;2023-11-06;2;Estambul
+Elegias de la soledad;1;2011-11-20;4;Dubai
+Elegias de la soledad;2;2024-01-27;4;Barcelona
+Elegias de la soledad;3;2007-11-25;4;Moscu
+Elegias de la tarde;1;2000-10-14;4;Singapur
+Elegias de la tarde;2;2018-11-18;4;Paris
+Elegias de la tarde;3;2017-04-26;4;Estocolmo
+Elegias de la tristeza;1;2012-02-23;2;Sevilla
+Elegias de la tristeza;2;2012-07-16;2;El Cairo
+Elegias de la tristeza;3;2008-10-05;2;Berlin
+Estrofas de la alma;1;2016-07-05;5;Viena
+Estrofas de la alma;2;2014-04-15;5;Rosario
+Estrofas de la alma;3;2022-04-05;5;Cordoba
+Estrofas de la muerte;1;2012-07-28;4;Singapur
+Estrofas de la muerte;2;2010-03-27;4;Berlin
+Estrofas de la muerte;3;2009-03-16;4;Tokio
+Estrofas de la odio;1;2018-05-16;3;Barcelona
+Estrofas de la odio;2;2015-09-15;3;Caracas
+Estrofas de la odio;3;2021-06-02;3;Sevilla
+Estrofas de mar;1;2009-10-27;1;Nueva York
+Estrofas de mar;2;2012-01-28;1;Cordoba
+Estrofas de mar;3;1986-05-24;1;Viena
+Estrofas de vida;1;1992-01-13;5;Sevilla
+Estrofas de vida;2;1992-09-10;5;Zaragoza
+Estrofas de vida;3;2001-08-25;5;Toronto
+Estrofas del dia;1;2000-03-04;1;Estocolmo
+Estrofas del dia;2;2014-09-12;1;Guadalajara
+Estrofas del dia;3;2025-07-17;1;Valencia
+Haikus de desesperacion;1;1989-03-23;4;Lisboa
+Haikus de desesperacion;2;2020-08-05;4;Dubai
+Haikus de desesperacion;3;2007-10-11;4;Monterrey
+Haikus de la alma;1;2022-12-27;3;Roma
+Haikus de la alma;2;2015-09-18;3;Londres
+Haikus de la alma;3;2013-01-12;3;Lisboa
+Haikus de la compañia;1;2007-10-10;5;Barcelona
+Haikus de la compañia;2;1997-11-26;5;Estambul
+Haikus de la compañia;3;1984-10-16;5;Monterrey
+Haikus de la tierra;1;2000-11-08;3;Valencia
+Haikus de la tierra;2;2003-01-15;3;Berlin
+Haikus de la tierra;3;2000-07-23;3;Lima
+Haikus de soledad;1;2006-10-16;2;Sevilla
+Haikus de soledad;2;2007-04-18;2;Berlin
+Haikus de soledad;3;2007-07-11;2;Bogota
+Haikus de tarde;1;2024-09-11;5;Sidney
+Haikus de tarde;2;2016-12-22;5;São Paulo
+Haikus de tarde;3;2001-04-09;5;Toronto
+Haikus de tierra;1;2006-05-25;3;Paris
+Haikus de tierra;2;2021-12-16;3;Berlin
+Haikus de tierra;3;2010-09-26;3;Rio de Janeiro
+Haikus del amor;1;1985-10-22;1;Sidney
+Haikus del amor;2;2003-06-25;1;Guadalajara
+Haikus del amor;3;1980-05-23;1;Buenos Aires
+Haikus del dia;1;1996-11-09;4;Nueva York
+Haikus del dia;2;1980-09-09;4;Toronto
+Haikus del dia;3;1976-02-20;4;Estambul
+Himnos de cielo;1;2010-01-22;3;Pekin
+Himnos de cielo;2;2023-04-02;3;Cordoba
+Himnos de cielo;3;2013-12-16;3;Cordoba
+Himnos de compañia;1;1972-09-06;2;Oslo
+Himnos de compañia;2;2002-11-07;2;Paris
+Himnos de compañia;3;1990-11-02;2;Buenos Aires
+Himnos de noche;1;2008-12-24;1;Valencia
+Himnos de noche;2;2000-03-02;1;Estocolmo
+Himnos de noche;3;1985-12-28;1;Paris
+Himnos de tarde;1;1987-05-19;2;Dubai
+Himnos de tarde;2;2008-05-15;2;Sidney
+Himnos de tarde;3;1995-09-15;2;Rio de Janeiro
+Himnos de tristeza;1;2001-06-06;5;El Cairo
+Himnos de tristeza;2;2005-01-24;5;Lisboa
+Himnos de tristeza;3;2006-03-20;5;Estocolmo
+Himnos del alma;1;2011-06-03;5;Estocolmo
+Himnos del alma;2;2000-03-16;5;Berlin
+Himnos del alma;3;1995-05-13;5;Caracas
+Himnos del desesperacion;1;2009-06-10;3;Estambul
+Himnos del desesperacion;2;2008-11-12;3;Caracas
+Himnos del desesperacion;3;1999-08-10;3;Monterrey
+Himnos del dia;1;2020-09-23;3;Roma
+Himnos del dia;2;2019-05-12;3;Singapur
+Himnos del dia;3;2006-03-16;3;Guadalajara
+Himnos del esperanza;1;2019-06-14;2;Toronto
+Himnos del esperanza;2;2015-11-27;2;Lima
+Himnos del esperanza;3;2024-10-28;2;Buenos Aires
+Himnos del infierno;1;2014-12-12;2;Zaragoza
+Himnos del infierno;2;1984-09-17;2;Medellin
+Himnos del infierno;3;1991-06-28;2;Pekin
+Letanias de compañia;1;2004-11-07;5;Estambul
+Letanias de compañia;2;2003-09-15;5;Sevilla
+Letanias de compañia;3;2005-09-14;5;El Cairo
+Letanias de infierno;1;2002-08-22;1;Roma
+Letanias de infierno;2;1992-05-27;1;Madrid
+Letanias de infierno;3;2004-02-02;1;Helsinki
+Letanias de la alma;1;2008-09-02;4;Zaragoza
+Letanias de la alma;2;2007-05-14;4;Bogota
+Letanias de la alma;3;2019-06-13;4;Atenas
+Letanias de la desesperacion;1;2010-02-22;2;Sidney
+Letanias de la desesperacion;2;2018-06-04;2;Bogota
+Letanias de la desesperacion;3;2014-03-24;2;Santiago
+Letanias de la dia;1;1987-05-15;1;Sidney
+Letanias de la dia;2;2020-07-27;1;Santiago
+Letanias de la dia;3;2015-06-05;1;Rio de Janeiro
+Letanias de la infierno;1;2023-12-25;1;Rosario
+Letanias de la infierno;2;2018-11-14;1;Singapur
+Letanias de la infierno;3;1982-04-03;1;Cordoba
+Letanias de la odio;1;2017-10-22;4;Sevilla
+Letanias de la odio;2;2004-07-15;4;Santiago
+Letanias de la odio;3;2004-03-17;4;Paris
+Letanias del alegria;1;2017-12-19;4;Berlin
+Letanias del alegria;2;1980-05-05;4;Pekin
+Letanias del alegria;3;1991-05-09;4;Sevilla
+Letanias del odio;1;2014-11-14;1;Toronto
+Letanias del odio;2;1977-06-21;1;Bruselas
+Letanias del odio;3;2018-07-14;1;Guadalajara
+Letanias del tierra;1;2005-03-25;5;Sidney
+Letanias del tierra;2;1996-04-10;5;Guadalajara
+Letanias del tierra;3;1984-09-14;5;Oslo
+Letanias del vida;1;2016-04-09;3;Lima
+Letanias del vida;2;1997-08-28;3;Viena
+Letanias del vida;3;2004-01-09;3;Bruselas
+Liras de compañia;1;1995-04-26;3;Estambul
+Liras de compañia;2;2021-04-28;3;Lisboa
+Liras de compañia;3;1991-04-07;3;Rosario
+Liras de esperanza;1;2023-04-23;4;Dubai
+Liras de esperanza;2;1990-04-18;4;Berlin
+Liras de esperanza;3;1989-08-18;4;amsterdam
+Liras de la cielo;1;2010-06-17;4;Londres
+Liras de la cielo;2;2000-12-16;4;Berlin
+Liras de la cielo;3;2017-06-14;4;Valencia
+Liras de la mar;1;2014-03-01;1;São Paulo
+Liras de la mar;2;1985-03-07;1;Lisboa
+Liras de la mar;3;1991-10-27;1;Caracas
+Liras de la soledad;1;2013-05-25;2;Londres
+Liras de la soledad;2;2021-03-24;2;amsterdam
+Liras de la soledad;3;2000-12-18;2;Londres
+Liras de la tierra;1;2012-11-02;1;Pekin
+Liras de la tierra;2;1982-11-02;1;Madrid
+Liras de la tierra;3;1986-11-08;1;Zaragoza
+Liras de noche;1;1987-04-17;4;El Cairo
+Liras de noche;2;1990-10-21;4;Singapur
+Liras de noche;3;2018-01-01;4;Sidney
+Liras del dia;1;1983-01-17;4;Rio de Janeiro
+Liras del dia;2;1984-09-27;4;Helsinki
+Liras del dia;3;1989-02-17;4;Guadalajara
+Liras del mar;1;2012-10-17;4;São Paulo
+Liras del mar;2;2014-07-03;4;Viena
+Liras del mar;3;2020-10-08;4;Santiago
+Liras del noche;1;1988-11-28;3;Valencia
+Liras del noche;2;2008-07-13;3;Toronto
+Liras del noche;3;1986-11-01;3;Monterrey
+Madrigales de la alegria;1;2023-07-21;3;Lisboa
+Madrigales de la alegria;2;2025-01-08;3;Lima
+Madrigales de la alegria;3;2009-01-03;3;Rio de Janeiro
+Madrigales de la alma;1;1983-06-01;2;Lima
+Madrigales de la alma;2;2020-12-27;2;Estocolmo
+Madrigales de la alma;3;1991-03-19;2;Caracas
+Madrigales de la muerte;1;2024-09-11;4;Bruselas
+Madrigales de la muerte;2;2025-12-03;4;Tokio
+Madrigales de la muerte;3;2004-02-14;4;Santiago
+Madrigales de la tierra;1;2019-10-25;5;Singapur
+Madrigales de la tierra;2;2019-01-21;5;Rio de Janeiro
+Madrigales de la tierra;3;2021-04-12;5;Toronto
+Madrigales de la vida;1;2017-03-22;5;Estambul
+Madrigales de la vida;2;1995-10-10;5;Caracas
+Madrigales de la vida;3;1995-05-05;5;Bruselas
+Madrigales de mar;1;2018-07-11;5;Viena
+Madrigales de mar;2;1997-01-10;5;Atenas
+Madrigales de mar;3;2019-05-04;5;Ciudad de Mexico
+Madrigales de soledad;1;2008-07-15;4;Toronto
+Madrigales de soledad;2;2006-01-03;4;amsterdam
+Madrigales de soledad;3;2022-10-26;4;Berlin
+Madrigales de tristeza;1;1994-05-14;5;Bruselas
+Madrigales de tristeza;2;2009-10-17;5;Monterrey
+Madrigales de tristeza;3;2004-03-09;5;Roma
+Madrigales del alegria;1;2018-03-03;4;Monterrey
+Madrigales del alegria;2;2011-07-10;4;Nueva York
+Madrigales del alegria;3;2014-05-08;4;Londres
+Madrigales del compañia;1;2013-02-05;1;Roma
+Madrigales del compañia;2;2009-06-27;1;Singapur
+Madrigales del compañia;3;2005-08-11;1;Helsinki
+Madrigales del infierno;1;1997-06-20;1;Medellin
+Madrigales del infierno;2;1998-03-13;1;Berlin
+Madrigales del infierno;3;2025-12-21;1;Londres
+Madrigales del muerte;1;2003-07-09;4;Estocolmo
+Madrigales del muerte;2;1990-10-07;4;Estambul
+Madrigales del muerte;3;2018-01-24;4;El Cairo
+Madrigales del noche;1;2012-05-27;1;Zaragoza
+Madrigales del noche;2;2015-03-21;1;Roma
+Madrigales del noche;3;2000-11-05;1;Helsinki
+Madrigales del tierra;1;1998-08-20;4;Nueva York
+Madrigales del tierra;2;2020-09-02;4;Viena
+Madrigales del tierra;3;2000-04-22;4;amsterdam
+Madrigales del vida;1;2022-10-02;5;Moscu
+Madrigales del vida;2;2002-07-04;5;Madrid
+Madrigales del vida;3;1997-04-17;5;Pekin
+Odas de alegria;1;2021-06-13;3;El Cairo
+Odas de alegria;2;2015-01-16;3;Cordoba
+Odas de alegria;3;2019-02-04;3;Guadalajara
+Odas de desesperacion;1;2006-06-15;2;Lima
+Odas de desesperacion;2;2009-08-04;2;Atenas
+Odas de desesperacion;3;2007-02-10;2;Valencia
+Odas de la desesperacion;1;1969-06-21;4;Cordoba
+Odas de la desesperacion;2;2015-04-17;4;Bogota
+Odas de la desesperacion;3;1989-09-14;4;El Cairo
+Odas de la esperanza;1;2013-11-06;5;Bogota
+Odas de la esperanza;2;2013-01-24;5;Singapur
+Odas de la esperanza;3;2015-10-14;5;Bruselas
+Odas del dia;1;2002-04-09;1;Zaragoza
+Odas del dia;2;2023-03-12;1;Berlin
+Odas del dia;3;2018-02-09;1;Londres
+Poemas de compañia;1;2013-10-13;1;Estambul
+Poemas de compañia;2;2011-06-28;1;El Cairo
+Poemas de compañia;3;2008-10-19;1;Buenos Aires
+Poemas de la cielo;1;2021-02-08;2;Roma
+Poemas de la cielo;2;2020-06-23;2;Guadalajara
+Poemas de la cielo;3;2022-10-05;2;Moscu
+Poemas de noche;1;2008-03-16;2;Sidney
+Poemas de noche;2;2016-03-16;2;Paris
+Poemas de noche;3;1992-06-27;2;Atenas
+Poemas de tierra;1;2014-01-16;3;Ciudad de Mexico
+Poemas de tierra;2;2016-09-17;3;Londres
+Poemas de tierra;3;2023-07-23;3;Atenas
+Poemas del desesperacion;1;1984-02-19;2;Barcelona
+Poemas del desesperacion;2;1992-01-09;2;Santiago
+Poemas del desesperacion;3;1984-08-19;2;Londres
+Poemas del muerte;1;1998-05-25;3;Sidney
+Poemas del muerte;2;2025-01-25;3;Atenas
+Poemas del muerte;3;2018-02-24;3;Caracas
+Poemas del tierra;1;1995-08-09;1;amsterdam
+Poemas del tierra;2;2021-02-25;1;Caracas
+Poemas del tierra;3;2015-12-20;1;Helsinki
+Poemas del vida;1;1997-04-27;1;Lima
+Poemas del vida;2;2025-06-18;1;Rio de Janeiro
+Poemas del vida;3;2009-12-10;1;Paris
+Rimas de compañia;1;2021-09-22;1;Cordoba
+Rimas de compañia;2;2015-07-02;1;Rio de Janeiro
+Rimas de compañia;3;2011-03-08;1;Guadalajara
+Rimas de desesperacion;1;2013-11-13;4;Londres
+Rimas de desesperacion;2;2024-11-09;4;Oslo
+Rimas de desesperacion;3;2020-02-21;4;Buenos Aires
+Rimas de la dia;1;1997-12-09;4;Viena
+Rimas de la dia;2;2025-08-11;4;Estambul
+Rimas de la dia;3;2020-12-03;4;El Cairo
+Rimas de la soledad;1;2025-02-26;2;Sidney
+Rimas de la soledad;2;2004-07-27;2;Lima
+Rimas de la soledad;3;2006-06-27;2;Paris
+Rimas de la tarde;1;2021-10-05;1;Moscu
+Rimas de la tarde;2;2007-11-25;1;Sevilla
+Rimas de la tarde;3;1992-11-26;1;El Cairo
+Rimas de la tierra;1;1998-03-15;3;El Cairo
+Rimas de la tierra;2;2018-04-23;3;Ciudad de Mexico
+Rimas de la tierra;3;2001-05-03;3;Viena
+Rimas de muerte;1;1988-06-22;4;Monterrey
+Rimas de muerte;2;2008-11-10;4;Santiago
+Rimas de muerte;3;2024-02-23;4;Cordoba
+Rimas de noche;1;1994-08-03;2;Ciudad de Mexico
+Rimas de noche;2;2014-11-15;2;Madrid
+Rimas de noche;3;2025-06-27;2;Rosario
+Rimas de tarde;1;2021-03-16;3;Zaragoza
+Rimas de tarde;2;2011-02-24;3;Cordoba
+Rimas de tarde;3;2009-06-10;3;Ciudad de Mexico
+Rimas de tierra;1;2018-03-21;5;Guadalajara
+Rimas de tierra;2;2002-10-01;5;Singapur
+Rimas de tierra;3;1997-06-24;5;Lima
+Rimas de vida;1;2025-07-20;1;Atenas
+Rimas de vida;2;1972-02-05;1;Rosario
+Rimas de vida;3;1989-07-11;1;Ciudad de Mexico
+Romances de desesperacion;1;1985-11-03;4;Caracas
+Romances de desesperacion;2;2017-12-01;4;Roma
+Romances de desesperacion;3;2001-10-17;4;Medellin
+Romances de esperanza;1;1983-11-02;4;Caracas
+Romances de esperanza;2;1989-02-08;4;Londres
+Romances de esperanza;3;1998-01-12;4;Berlin
+Romances de la compañia;1;2010-10-14;1;Viena
+Romances de la compañia;2;2016-02-01;1;Estambul
+Romances de la compañia;3;1986-05-07;1;Valencia
+Romances de la dia;1;2015-09-10;3;Tokio
+Romances de la dia;2;2016-12-13;3;Buenos Aires
+Romances de la dia;3;2011-02-10;3;Buenos Aires
+Romances de la esperanza;1;2025-03-18;2;Berlin
+Romances de la esperanza;2;2023-11-25;2;Zaragoza
+Romances de la esperanza;3;2024-07-24;2;Caracas
+Romances de tierra;1;2010-02-14;3;Rosario
+Romances de tierra;2;2022-10-02;3;Roma
+Romances de tierra;3;2006-01-23;3;Ciudad de Mexico
+Romances del alma;1;2002-08-12;2;Pekin
+Romances del alma;2;2002-06-05;2;Rio de Janeiro
+Romances del alma;3;1993-06-26;2;Helsinki
+Romances del compañia;1;2022-02-09;5;Moscu
+Romances del compañia;2;2021-08-17;5;Viena
+Romances del compañia;3;2021-10-06;5;Viena
+Romances del mar;1;2021-02-19;2;Rosario
+Romances del mar;2;2024-09-01;2;Valencia
+Romances del mar;3;2020-01-16;2;Viena
+Salmos de esperanza;1;1996-03-28;2;Valencia
+Salmos de esperanza;2;2001-06-08;2;Oslo
+Salmos de esperanza;3;2004-02-19;2;Viena
+Salmos de la desesperacion;1;2004-11-02;2;Bogota
+Salmos de la desesperacion;2;2023-09-02;2;Estocolmo
+Salmos de la desesperacion;3;2001-05-25;2;Roma
+Salmos de la muerte;1;1995-09-15;5;Madrid
+Salmos de la muerte;2;2002-05-19;5;Roma
+Salmos de la muerte;3;2019-06-19;5;Londres
+Salmos de la tristeza;1;2024-09-25;5;Caracas
+Salmos de la tristeza;2;2001-07-01;5;Santiago
+Salmos de la tristeza;3;2021-12-01;5;Lisboa
+Salmos de noche;1;2024-07-28;5;Roma
+Salmos de noche;2;2017-09-08;5;Oslo
+Salmos de noche;3;2014-03-23;5;Rio de Janeiro
+Salmos de tierra;1;1985-04-28;3;Pekin
+Salmos de tierra;2;2006-08-24;3;Buenos Aires
+Salmos de tierra;3;2015-03-21;3;Estocolmo
+Salmos de vida;1;2020-10-02;4;Helsinki
+Salmos de vida;2;1998-05-09;4;Berlin
+Salmos de vida;3;2003-06-15;4;Rio de Janeiro
+Satiras de esperanza;1;2001-04-05;3;Estambul
+Satiras de esperanza;2;2003-02-06;3;Atenas
+Satiras de esperanza;3;2009-07-04;3;Sidney
+Satiras de muerte;1;2017-08-10;5;El Cairo
+Satiras de muerte;2;2015-02-06;5;Roma
+Satiras de muerte;3;2017-06-05;5;Buenos Aires
+Satiras de tristeza;1;2015-07-17;3;Sevilla
+Satiras de tristeza;2;2009-03-01;3;Estocolmo
+Satiras de tristeza;3;2008-02-15;3;Cordoba
+Satiras del muerte;1;1998-01-02;5;Santiago
+Satiras del muerte;2;2001-07-12;5;Buenos Aires
+Satiras del muerte;3;2024-02-01;5;Zaragoza
+Sonetos de la amor;1;2018-03-03;5;Lisboa
+Sonetos de la amor;2;1992-08-02;5;Monterrey
+Sonetos de la amor;3;2015-08-01;5;Bruselas
+Sonetos de tierra;1;2016-06-07;5;Bogota
+Sonetos de tierra;2;2018-08-05;5;Valencia
+Sonetos de tierra;3;2024-05-16;5;Oslo
+Sonetos de tristeza;1;1995-02-09;3;Bruselas
+Sonetos de tristeza;2;2018-04-21;3;Pekin
+Sonetos de tristeza;3;1993-07-26;3;amsterdam
+Sonetos de vida;1;2025-06-19;4;Tokio
+Sonetos de vida;2;2018-05-06;4;Barcelona
+Sonetos de vida;3;2008-01-26;4;Rio de Janeiro
+Sonetos del muerte;1;2024-09-12;4;Estambul
+Sonetos del muerte;2;2004-02-08;4;Caracas
+Sonetos del muerte;3;1997-04-19;4;Bruselas
+Versos de desesperacion;1;2022-03-06;5;Caracas
+Versos de desesperacion;2;2020-12-23;5;amsterdam
+Versos de desesperacion;3;2014-12-12;5;Moscu
+Versos de la noche;1;2004-04-27;4;Londres
+Versos de la noche;2;1979-08-02;4;Buenos Aires
+Versos de la noche;3;1982-10-08;4;Barcelona
+Versos de la tristeza;1;1992-06-20;3;Medellin
+Versos de la tristeza;2;2013-12-06;3;Berlin
+Versos de la tristeza;3;1993-03-19;3;Guadalajara
+Versos de muerte;1;2007-06-03;2;Viena
+Versos de muerte;2;2011-02-11;2;Roma
+Versos de muerte;3;1982-03-24;2;Helsinki
+Versos del soledad;1;2010-03-23;5;Toronto
+Versos del soledad;2;2004-11-19;5;Bogota
+Versos del soledad;3;2009-12-23;5;Paris
+Versos del tierra;1;1994-12-01;4;Moscu
+Versos del tierra;2;2019-01-06;4;Dubai
+Versos del tierra;3;2022-04-21;4;Moscu

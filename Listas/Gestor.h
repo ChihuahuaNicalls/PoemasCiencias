@@ -14,6 +14,14 @@
 
 using namespace std;
 
+string toLower(string s)
+{
+    transform(s.begin(), s.end(), s.begin(),
+              [](unsigned char c)
+              { return tolower(c); });
+    return s;
+}
+
 class Gestor
 {
 private:
@@ -114,7 +122,7 @@ void Gestor::cargarDatos()
             {
                 if (editoriales.obtener(i).getId() == id)
                 {
-                    cout << "Advertencia: ID duplicado en editoriales - " << id << ". Omitting..." << endl;
+                    cout << "Id duplicado: " << id << endl;
                     idDuplicado = true;
                     break;
                 }
@@ -142,13 +150,12 @@ void Gestor::cargarDatos()
             getline(ss, tipo, ';');
             ss >> idAutor;
 
-            // Verificar si el título ya existe
             bool tituloDuplicado = false;
             for (int i = 0; i < obras.getNumElem(); ++i)
             {
                 if (obras.obtener(i).getTitulo() == nombre)
                 {
-                    cout << "Advertencia: Título duplicado en obras - " << nombre << ". Omitting..." << endl;
+                    cout << "Titulo duplicado: " << nombre << endl;
                     tituloDuplicado = true;
                     break;
                 }
@@ -194,8 +201,8 @@ void Gestor::cargarDatos()
                     {
                         if (ediciones.obtener(j).getNumero() == numero)
                         {
-                            cout << "Advertencia: Número de edición duplicado - " << numero
-                                 << " para obra " << nombreObra << ". Omitting..." << endl;
+                            cout << "Edicion duplicada: " << numero
+                                 << "; para obra: " << nombreObra << endl;
                             numeroDuplicado = true;
                             break;
                         }
@@ -216,7 +223,7 @@ void Gestor::cargarDatos()
 
             if (!obraEncontrada)
             {
-                cout << "Advertencia: Obra no encontrada para edición - " << nombreObra << endl;
+                cout << "Obra no encontrada para edicion: " << nombreObra << endl;
             }
         }
         fed.close();
@@ -260,7 +267,7 @@ void Gestor::guardarDatos()
     {
         for (int i = 0; i < obras.getNumElem(); i++)
         {
-            Obra o = obras.obtener(i);
+            Obra &o = obras.obtener(i); // Referencia
             fo << o.getTitulo() << ';' << o.getTipoPoesia() << ';'
                << o.getIdAutor() << '\n';
         }
@@ -273,11 +280,11 @@ void Gestor::guardarDatos()
     {
         for (int i = 0; i < obras.getNumElem(); i++)
         {
-            Obra o = obras.obtener(i);
+            Obra &o = obras.obtener(i);
             Lista<Edicion> &ediciones = o.getEdiciones();
             for (int j = 0; j < ediciones.getNumElem(); j++)
             {
-                Edicion e = ediciones.obtener(j);
+                Edicion &e = ediciones.obtener(j);
                 fed << o.getTitulo() << ';' << e.getNumero() << ';'
                     << e.getFechaPublicacion().toString() << ';'
                     << e.getIdEditorial() << ';' << e.getCiudad() << '\n';
@@ -292,13 +299,16 @@ void Gestor::guardarDatos()
 Autor *Gestor::busquedaBinariaAutor(const string &apellido)
 {
     int ini = 0, fin = autores.getNumElem() - 1;
+    std::string apellidoBuscadoLower = toLower(apellido);
+
     while (ini <= fin)
     {
         int mid = (ini + fin) / 2;
-        string apellidoActual = autores.obtener(mid).getApellido();
-        if (apellidoActual == apellido)
+        std::string apellidoActualLower = toLower(autores.obtener(mid).getApellido());
+
+        if (apellidoActualLower == apellidoBuscadoLower)
             return &autores.obtener(mid);
-        else if (apellidoActual < apellido)
+        else if (apellidoActualLower < apellidoBuscadoLower)
             ini = mid + 1;
         else
             fin = mid - 1;
@@ -309,13 +319,15 @@ Autor *Gestor::busquedaBinariaAutor(const string &apellido)
 Editorial *Gestor::busquedaBinariaEditorial(const string &nombre)
 {
     int ini = 0, fin = editoriales.getNumElem() - 1;
+    std::string nombreBuscadoLower = toLower(nombre);
+
     while (ini <= fin)
     {
         int mid = (ini + fin) / 2;
-        string actual = editoriales.obtener(mid).getNombre();
-        if (actual == nombre)
+        std::string actualLower = toLower(editoriales.obtener(mid).getNombre());
+        if (actualLower == nombreBuscadoLower)
             return &editoriales.obtener(mid);
-        else if (actual < nombre)
+        else if (actualLower < nombreBuscadoLower)
             ini = mid + 1;
         else
             fin = mid - 1;
@@ -330,7 +342,7 @@ void Gestor::agregarAutor(const Autor &autor)
     {
         if (autores.obtener(i).getId() == autor.getId())
         {
-            cout << "Error: ID de autor duplicado - " << autor.getId() << endl;
+            cout << "Id duplicado: " << autor.getId() << endl;
             return;
         }
     }
@@ -355,8 +367,8 @@ void Gestor::agregarEdicion(const Edicion &ed)
             {
                 if (ediciones.obtener(j).getNumero() == ed.getNumero())
                 {
-                    cout << "Error: Número de edición duplicado - " << ed.getNumero()
-                         << " para obra " << ed.getNombreObra() << endl;
+                    cout << "Numero de edicion duplicada: " << ed.getNumero()
+                         << "; para obra: " << ed.getNombreObra() << endl;
                     return;
                 }
             }
@@ -374,7 +386,7 @@ void Gestor::agregarObra(const Obra &obra)
     {
         if (obras.obtener(i).getTitulo() == obra.getTitulo())
         {
-            cout << "Error: Título de obra duplicado - " << obra.getTitulo() << endl;
+            cout << "Titulo duplicado - " << obra.getTitulo() << endl;
             return;
         }
     }
@@ -744,10 +756,10 @@ void Gestor::listaEdiciones()
             {
                 int idxEd = indicesEdiciones[j];
                 Edicion &e = ediciones.obtener(idxEd);
-                cout << "  Edición #" << e.getNumero()
-                     << " - Editorial ID: " << e.getIdEditorial()
-                     << " - Fecha: " << e.getFechaPublicacion().toString()
-                     << " - Ciudad: " << e.getCiudad() << endl;
+                cout << "Edicion " << e.getNumero()
+                     << "; Editorial ID: " << e.getIdEditorial()
+                     << "; Fecha: " << e.getFechaPublicacion().toString()
+                     << "; Ciudad: " << e.getCiudad() << endl;
             }
 
             delete[] indicesEdiciones;
@@ -774,9 +786,11 @@ void Gestor::obrasPorAutor()
     string apellido = nombreCompleto.substr(pos + 1);
 
     Lista<Autor *> autoresConApellido;
+    std::string apellidoLower = toLower(apellido);
+
     for (int i = 0; i < autores.getNumElem(); ++i)
     {
-        if (autores.obtener(i).getApellido() == apellido)
+        if (toLower(autores.obtener(i).getApellido()) == apellidoLower)
         {
             autoresConApellido.insertarFinal(&autores.obtener(i));
         }
@@ -861,7 +875,6 @@ void Gestor::obrasPorAutor()
                     bool editorialEncontrada = false;
                     string nombreEditorial = "(Editorial desconocida)";
 
-                    // Buscar editorial
                     for (int k = 0; k < editoriales.getNumElem(); ++k)
                     {
                         if (editoriales.obtener(k).getId() == ed.getIdEditorial())
@@ -932,7 +945,7 @@ void Gestor::nombresObrasPorTipo()
             {
                 Edicion &ed = obra.getEdiciones().obtener(j);
                 cout << obra.getTitulo()
-                     << " ; Edición " << ed.getNumero()
+                     << " ; Edicion " << ed.getNumero()
                      << " ; Publicada en: " << ed.getFechaPublicacion().toString() << endl;
             }
         }
@@ -1081,10 +1094,10 @@ void Gestor::generoPorEditorial()
             {
                 if (autores.obtener(j).getId() == idAutor)
                 {
-                    string sexo = autores.obtener(j).getSexo();
-                    if (sexo == "M")
+                    std::string sexoLower = toLower(autores.obtener(j).getSexo());
+                    if (sexoLower == "m")
                         hombres++;
-                    else if (sexo == "F")
+                    else if (sexoLower == "f")
                         mujeres++;
                     break;
                 }
@@ -1100,13 +1113,14 @@ void Gestor::generoPorEditorial()
 void Gestor::autoresPorEdadYFormacion(int edadMin, int edadMax, string formacion)
 {
     cout << "Autores con formacion '" << formacion << "' y edad entre " << edadMin << " y " << edadMax << ":\n";
+    std::string formacionLower = toLower(formacion);
 
     for (int i = 0; i < autores.getNumElem(); ++i)
     {
         Autor &autor = autores.obtener(i);
         int edad = autor.calcularEdad();
 
-        if (edad >= edadMin && edad <= edadMax && autor.getFormacionAcademica() == formacion)
+        if (edad >= edadMin && edad <= edadMax && toLower(autor.getFormacionAcademica()) == formacionLower)
         {
             cout << autor.getNombre() << " " << autor.getApellido()
                  << " ; Edad: " << edad
@@ -1120,6 +1134,8 @@ void Gestor::autoresPorPoesiaYEditorial(string tipo, int idEditorial)
     cout << "Autores que escriben poesia tipo '" << tipo
          << "' y han publicado con la editorial id " << idEditorial << ":\n";
 
+    std::string tipoLower = toLower(tipo);
+
     for (int i = 0; i < autores.getNumElem(); ++i)
     {
         int idAutor = autores.obtener(i).getId();
@@ -1128,7 +1144,7 @@ void Gestor::autoresPorPoesiaYEditorial(string tipo, int idEditorial)
         for (int j = 0; j < obras.getNumElem(); ++j)
         {
             Obra &o = obras.obtener(j);
-            if (o.getIdAutor() == idAutor && o.getTipoPoesia() == tipo)
+            if (o.getIdAutor() == idAutor && toLower(o.getTipoPoesia()) == tipoLower)
             {
                 for (int k = 0; k < o.getEdiciones().getNumElem(); ++k)
                 {
@@ -1242,7 +1258,7 @@ void Gestor::menu()
                     size_t pos = nombreCompleto.find_last_of(' ');
                     if (pos == string::npos)
                     {
-                        cout << "Formato inválido.\n";
+                        cout << "Formato invalido.\n";
                         break;
                     }
                     string apellido = nombreCompleto.substr(pos + 1);
@@ -1263,7 +1279,7 @@ void Gestor::menu()
                     size_t pos = nombreCompleto.find_last_of(' ');
                     if (pos == string::npos)
                     {
-                        cout << "Formato inválido.\n";
+                        cout << "Formato invalido.\n";
                         break;
                     }
                     string apellido = nombreCompleto.substr(pos + 1);
@@ -1415,7 +1431,7 @@ void Gestor::menu()
                     size_t pos = nombreCompleto.find_last_of(' ');
                     if (pos == string::npos)
                     {
-                        cout << "Formato inválido.\n";
+                        cout << "Formato invalido.\n";
                         break;
                     }
                     string apellido = nombreCompleto.substr(pos + 1);
@@ -1460,7 +1476,7 @@ void Gestor::menu()
                             size_t pos = nuevoAutorCompleto.find_last_of(' ');
                             if (pos == string::npos)
                             {
-                                cout << "Formato inválido.\n";
+                                cout << "Formato invalido.\n";
                                 break;
                             }
                             string apellido = nuevoAutorCompleto.substr(pos + 1);

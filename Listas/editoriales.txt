@@ -1,5 +1,5 @@
-5;Ediciones Nacional Poética;Sídney;Austria
-4;Ediciones Oeste Poética;Tokio;Egipto
-3;Ediciones Regional Artística;Valencia;España
-1;Ediciones del Sur Imaginativa;Río de Janeiro;Brasil
-2;Editorial Este Imaginativa;Córdoba;Reino Unido
+5;Ediciones Nacional Poetica;Sidney;Austria
+4;Ediciones Oeste Poetica;Tokio;Egipto
+3;Ediciones Regional Artistica;Valencia;España
+1;Ediciones del Sur Imaginativa;Rio de Janeiro;Brasil
+2;Editorial Este Imaginativa;Cordoba;Reino Unido
