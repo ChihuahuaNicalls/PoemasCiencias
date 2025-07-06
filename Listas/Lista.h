@@ -1,6 +1,7 @@
 #ifndef LISTA_H
 #define LISTA_H
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
