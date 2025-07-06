@@ -79,7 +79,7 @@ void Gestor::cargarDatos()
         while (getline(fa, linea))
         {
             stringstream ss(linea);
-            int id, añoInicio, añoPrimeraObra;
+            int id, fechaInicio, fechaPrimeraObra;
             string nombre, apellido, sexo, fechaNacStr, ciudadNac, pais, ciudadRes, formacion;
             getline(ss, nombre, ';');
             getline(ss, apellido, ';');
@@ -91,11 +91,11 @@ void Gestor::cargarDatos()
             getline(ss, formacion, ';');
             ss >> id;
             ss.ignore();
-            ss >> añoInicio;
+            ss >> fechaInicio;
             ss.ignore();
-            ss >> añoPrimeraObra;
+            ss >> fechaPrimeraObra;
             Fecha fechaNac(fechaNacStr);
-            agregarAutor(Autor(id, nombre, apellido, sexo, fechaNac, ciudadNac, pais, ciudadRes, formacion, añoInicio, añoPrimeraObra));
+            agregarAutor(Autor(id, nombre, apellido, sexo, fechaNac, ciudadNac, pais, ciudadRes, formacion, fechaInicio, fechaPrimeraObra));
         }
         fa.close();
     }
@@ -840,7 +840,7 @@ void Gestor::obrasPorAutor()
         }
     }
 
-    cout << "Obras por editorial y año de publicacion:\n";
+    cout << "Obras por editorial y fecha de publicacion:\n";
     bool encontradas = false;
     string nombreAutor = "";
 
@@ -999,7 +999,7 @@ void Gestor::autoresPorEditorial()
             cout << a.getNombre() << " " << a.getApellido()
                  << "; Nacido en: " << a.getCiudadNacimiento() << ", " << a.getPaisNacimiento()
                  << "; Reside en: " << a.getCiudadResidencia()
-                 << "; Año inicio en la literatura: " << a.getYearInicioLiteratura() << '\n';
+                 << "; fecha inicio en la literatura: " << a.getYearInicioLiteratura() << '\n';
         }
     }
     cout << "Total de autores publicados por la editorial: " << totalAutores << endl;
@@ -1219,7 +1219,7 @@ void Gestor::menu()
                     break;
                 case 2:
                 {
-                    int id, añoInicio, añoPrimeraObra;
+                    int id, fechaInicio, fechaPrimeraObra;
                     string nombre, apellido, sexo, fechaNacStr, ciudadNac, pais, ciudadRes, formacion;
                     cout << "ID: ";
                     cin >> id;
@@ -1240,12 +1240,12 @@ void Gestor::menu()
                     getline(cin, ciudadRes);
                     cout << "Formacion academica: ";
                     getline(cin, formacion);
-                    cout << "Año inicio literatura: ";
-                    cin >> añoInicio;
-                    cout << "Año primera obra: ";
-                    cin >> añoPrimeraObra;
+                    cout << "fecha inicio literatura: ";
+                    cin >> fechaInicio;
+                    cout << "fecha primera obra: ";
+                    cin >> fechaPrimeraObra;
                     Fecha fNac(fechaNacStr);
-                    agregarAutor(Autor(id, nombre, apellido, sexo, fNac, ciudadNac, pais, ciudadRes, formacion, añoInicio, añoPrimeraObra));
+                    agregarAutor(Autor(id, nombre, apellido, sexo, fNac, ciudadNac, pais, ciudadRes, formacion, fechaInicio, fechaPrimeraObra));
                     break;
                 }
                 case 3:
@@ -1292,7 +1292,7 @@ void Gestor::menu()
                     }
 
                     string nuevoNombre, nuevoApellido, sexo, fechaNacStr, ciudadNac, pais, ciudadRes, formacion;
-                    int añoInicio, añoPrimeraObra;
+                    int fechaInicio, fechaPrimeraObra;
 
                     cout << "Nuevo nombre: ";
                     getline(cin, nuevoNombre);
@@ -1310,14 +1310,14 @@ void Gestor::menu()
                     getline(cin, ciudadRes);
                     cout << "Formacion academica: ";
                     getline(cin, formacion);
-                    cout << "Año inicio literatura: ";
-                    cin >> añoInicio;
-                    cout << "Año primera obra: ";
-                    cin >> añoPrimeraObra;
+                    cout << "fecha inicio literatura: ";
+                    cin >> fechaInicio;
+                    cout << "fecha primera obra: ";
+                    cin >> fechaPrimeraObra;
 
                     Fecha fNac(fechaNacStr);
                     Autor nuevo(autor->getId(), nuevoNombre, nuevoApellido, sexo, fNac,
-                                ciudadNac, pais, ciudadRes, formacion, añoInicio, añoPrimeraObra);
+                                ciudadNac, pais, ciudadRes, formacion, fechaInicio, fechaPrimeraObra);
 
                     if (modificarAutor(apellido, nuevo))
                         cout << "Autor modificado.\n";
