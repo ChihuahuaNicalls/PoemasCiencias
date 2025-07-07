@@ -784,13 +784,51 @@ void Gestor::obrasPorAutor()
     }
     string nombre = nombreCompleto.substr(0, pos);
     string apellido = nombreCompleto.substr(pos + 1);
+    string apellidoLower = toLower(apellido);
 
+    // Binaria para autores
     Lista<Autor *> autoresConApellido;
-    std::string apellidoLower = toLower(apellido);
 
-    for (int i = 0; i < autores.getNumElem(); ++i)
+    int low = 0;
+    int high = autores.getNumElem() - 1;
+    int midPoint = -1;
+
+    while (low <= high)
     {
-        if (toLower(autores.obtener(i).getApellido()) == apellidoLower)
+        int mid = (low + high) / 2;
+        string currentApellido = toLower(autores.obtener(mid).getApellido());
+
+        if (currentApellido == apellidoLower)
+        {
+            midPoint = mid;
+            break;
+        }
+        else if (currentApellido < apellidoLower)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+
+    // Expandir busqueda para encontrar todos los autores con el mismo apellido
+    if (midPoint != -1)
+    {
+        int first = midPoint;
+        while (first > 0 && toLower(autores.obtener(first - 1).getApellido()) == apellidoLower)
+        {
+            first--;
+        }
+
+        int last = midPoint;
+        while (last < autores.getNumElem() - 1 && toLower(autores.obtener(last + 1).getApellido()) == apellidoLower)
+        {
+            last++;
+        }
+
+        for (int i = first; i <= last; ++i)
         {
             autoresConApellido.insertarFinal(&autores.obtener(i));
         }
@@ -803,9 +841,11 @@ void Gestor::obrasPorAutor()
     }
 
     int idAutor;
+    string nombreAutorS;
     if (autoresConApellido.getNumElem() == 1)
     {
         idAutor = autoresConApellido.obtener(0)->getId();
+        nombreAutorS = autoresConApellido.obtener(0)->getNombre() + " " + autoresConApellido.obtener(0)->getApellido();
     }
     else
     {
@@ -829,6 +869,8 @@ void Gestor::obrasPorAutor()
             if (autoresConApellido.obtener(i)->getId() == idAutor)
             {
                 idValido = true;
+                nombreAutorS = autoresConApellido.obtener(i)->getNombre() + " " +
+                              autoresConApellido.obtener(i)->getApellido();
                 break;
             }
         }
